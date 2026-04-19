@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Command Center</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #080809;
+    --bg-card:   #0f0f12;
+    --border:    rgba(255,255,255,0.06);
+    --border-md: rgba(255,255,255,0.1);
+    --text-1:    #f0f0ee;
+    --text-2:    #9090a0;
+    --text-3:    #505060;
+    --teal:      #1daa7e;
+    --teal-dim:  rgba(29,170,126,0.15);
+    --amber:     #e8a020;
+    --amber-dim: rgba(232,160,32,0.13);
+    --coral:     #d95f38;
+    --coral-dim: rgba(217,95,56,0.13);
+    --purple:    #8b7fe8;
+    --purple-dim:rgba(139,127,232,0.13);
+    --blue:      #4a9ee0;
+    --blue-dim:  rgba(74,158,224,0.13);
+    --sage:      #72aa30;
+    --sage-dim:  rgba(114,170,48,0.13);
+    --green:     #2dca8c;
+    --radius:    14px;
+    --radius-sm: 8px;
+  }
+
+  body.light {
+    --bg:        #f4f3f0;
+    --bg-card:   #ffffff;
+    --border:    rgba(0,0,0,0.08);
+    --border-md: rgba(0,0,0,0.15);
+    --text-1:    #1a1a1e;
+    --text-2:    #5a5a6a;
+    --text-3:    #9090a0;
+    --teal:      #0f8a64; --teal-dim: rgba(15,138,100,0.1);
+    --amber:     #b87800; --amber-dim: rgba(184,120,0,0.1);
+    --coral:     #b84020; --coral-dim: rgba(184,64,32,0.1);
+    --purple:    #6258c8; --purple-dim: rgba(98,88,200,0.1);
+    --blue:      #2878c0; --blue-dim: rgba(40,120,192,0.1);
+    --sage:      #508018; --sage-dim: rgba(80,128,24,0.1);
+    --green:     #0a9e6a;
+  }
+  body.light .live-pill { border-color: rgba(10,158,106,0.3); background: rgba(10,158,106,0.07); }
+  body.light .card-teal   { border-color: rgba(15,138,100,0.35); }
+  body.light .card-amber  { border-color: rgba(184,120,0,0.35);  }
+  body.light .card-coral  { border-color: rgba(184,64,32,0.35);  }
+  body.light .card-purple { border-color: rgba(98,88,200,0.35);  }
+  body.light .card-blue   { border-color: rgba(40,120,192,0.35); }
+  body.light .card-sage   { border-color: rgba(80,128,24,0.35);  }
+  body.light .goal-bar-bg { background: rgba(0,0,0,0.06); }
+  body.light .stage       { background: rgba(0,0,0,0.03); }
+  body.light .ai-prompt   { background: rgba(0,0,0,0.03); }
+  body.light .stat        { background: rgba(0,0,0,0.03); }
+
+  html, body {
+    width: 100%; min-height: 100vh;
+    background: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-1);
+    transition: background 0.45s, color 0.45s;
+  }
+
+  .root {
+    position: relative;
+    max-width: 1800px; width: 100%;
+    margin: 0 auto;
+    padding: 24px 28px;
+    min-height: 100vh;
+    display: flex; flex-direction: column; gap: 20px;
+  }
+
+  /* HEADER */
+  .header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 18px; border-bottom: 0.5px solid var(--border); }
+  .header-left { display: flex; flex-direction: column; gap: 4px; }
+  .greeting { font-size: 26px; font-weight: 300; letter-spacing: -0.02em; }
+  .greeting span { font-weight: 500; }
+  .subline { font-size: 13px; color: var(--text-3); }
+  .header-right { display: flex; align-items: center; gap: 20px; }
+  .live-pill { display: flex; align-items: center; gap: 7px; padding: 6px 14px; border-radius: 20px; border: 0.5px solid rgba(45,202,140,0.2); background: rgba(45,202,140,0.06); }
+  .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: breathe 2.5s ease-in-out infinite; }
+  @keyframes breathe { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .live-text { font-size: 11px; color: var(--green); letter-spacing: 0.05em; font-family: 'DM Mono', monospace; }
+  .theme-btn { background: var(--bg-card); border: 0.5px solid var(--border-md); border-radius: 20px; padding: 7px 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; color: var(--text-2); font-family: 'DM Sans', sans-serif; font-size: 12px; transition: all 0.2s; }
+  .theme-btn:hover { color: var(--text-1); }
+  .clock-block { text-align: right; }
+  .clock { font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 400; letter-spacing: -0.02em; line-height: 1; }
+  .clock-date { font-size: 11px; color: var(--text-3); margin-top: 3px; letter-spacing: 0.04em; }
+
+  /* GRID */
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; flex: 1; }
+  .col { display: flex; flex-direction: column; gap: 16px; }
+
+  /* CARD */
+  .card { background: var(--bg-card); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 22px 24px; cursor: pointer; transition: border-color 0.3s, transform 0.15s; }
+  .card:hover { transform: translateY(-1px); }
+  .card-teal   { border-color: rgba(29,170,126,0.28); } .card-teal:hover   { border-color: rgba(29,170,126,0.5); }
+  .card-amber  { border-color: rgba(232,160,32,0.28); } .card-amber:hover  { border-color: rgba(232,160,32,0.5); }
+  .card-coral  { border-color: rgba(217,95,56,0.28);  } .card-coral:hover  { border-color: rgba(217,95,56,0.5);  }
+  .card-purple { border-color: rgba(139,127,232,0.28);} .card-purple:hover { border-color: rgba(139,127,232,0.5);}
+  .card-blue   { border-color: rgba(74,158,224,0.28); } .card-blue:hover   { border-color: rgba(74,158,224,0.5); }
+  .card-sage   { border-color: rgba(114,170,48,0.28); } .card-sage:hover   { border-color: rgba(114,170,48,0.5); }
+  .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+  .accent { width: 3px; height: 22px; border-radius: 2px; flex-shrink: 0; }
+  .card-title { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); }
+  .card-meta { margin-left: auto; font-size: 11px; color: var(--text-3); font-family: 'DM Mono', monospace; }
+
+  /* CALENDAR */
+  .cal-item { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 0.5px solid var(--border); transition: opacity 0.5s; }
+  .cal-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .cal-item.past { opacity: 0.25; }
+  .cal-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+  .cal-time { font-size: 12px; font-weight: 500; min-width: 60px; font-family: 'DM Mono', monospace; margin-top: 2px; }
+  .cal-body { flex: 1; }
+  .cal-label { font-size: 15px; color: var(--text-1); line-height: 1.3; }
+  .cal-tag { font-size: 11px; color: var(--text-3); margin-top: 3px; }
+  .now-badge { font-size: 10px; padding: 3px 9px; border-radius: 20px; background: var(--teal-dim); color: var(--teal); font-family: 'DM Mono', monospace; flex-shrink: 0; border: 0.5px solid rgba(29,170,126,0.25); }
+
+  /* TASKS */
+  .task-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 0.5px solid var(--border); transition: opacity 0.4s; }
+  .task-item:last-child { border-bottom: none; }
+  .task-item.done { opacity: 0.22; }
+  .task-check { width: 20px; height: 20px; border-radius: 5px; border: 1.5px solid rgba(232,160,32,0.35); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .task-check.checked { background: var(--amber-dim); border-color: var(--amber); }
+  .check-svg { display: none; }
+  .task-check.checked .check-svg { display: block; }
+  .task-text { font-size: 14px; color: var(--text-1); flex: 1; }
+  .task-item.done .task-text { text-decoration: line-through; color: var(--text-3); }
+  .badge { font-size: 10px; padding: 3px 10px; border-radius: 20px; font-weight: 500; flex-shrink: 0; font-family: 'DM Mono', monospace; }
+  .badge-urgent { background: var(--amber-dim); color: var(--amber); border: 0.5px solid rgba(232,160,32,0.25); }
+  .badge-today  { background: rgba(255,255,255,0.04); color: var(--text-3); border: 0.5px solid var(--border); }
+  .badge-done   { background: rgba(45,202,140,0.1); color: var(--green); border: 0.5px solid rgba(45,202,140,0.2); }
+
+  /* EMAIL */
+  .email-item { padding: 13px 0; border-bottom: 0.5px solid var(--border); transition: opacity 0.5s; }
+  .email-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .email-item.sent { opacity: 0.18; pointer-events: none; }
+  .email-from { font-size: 12px; color: var(--coral); font-weight: 500; margin-bottom: 4px; }
+  .email-subject { font-size: 15px; color: var(--text-1); margin-bottom: 4px; line-height: 1.3; }
+  .email-preview { font-size: 12px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 11px; }
+  .email-actions { display: flex; gap: 8px; }
+  .ebtn { font-size: 11px; padding: 6px 14px; border-radius: var(--radius-sm); border: 0.5px solid; cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
+  .ebtn-approve { border-color: rgba(45,202,140,0.3); color: var(--green); background: rgba(45,202,140,0.07); }
+  .ebtn-approve:hover { background: rgba(45,202,140,0.15); }
+  .ebtn-edit { border-color: var(--border-md); color: var(--text-3); background: transparent; }
+  .sent-label { font-size: 12px; color: var(--green); font-family: 'DM Mono', monospace; }
+
+  /* GOALS */
+  .goal-item { padding: 13px 0; border-bottom: 0.5px solid var(--border); }
+  .goal-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .goal-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 9px; }
+  .goal-label { font-size: 14px; color: var(--text-1); }
+  .goal-pct { font-size: 13px; color: var(--purple); font-family: 'DM Mono', monospace; font-weight: 500; }
+  .goal-bar-bg { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
+  .goal-bar-fill { height: 4px; border-radius: 2px; background: var(--purple); }
+  .goal-note { font-size: 11px; color: var(--text-3); margin-top: 5px; }
+
+  /* CREATIVE */
+  .pipeline-row { display: flex; gap: 8px; margin-bottom: 16px; }
+  .stage { flex: 1; background: rgba(255,255,255,0.025); border-radius: var(--radius-sm); padding: 13px 10px 11px; border: 0.5px solid var(--border); text-align: center; }
+  .stage-label { font-size: 9px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 7px; }
+  .stage-num { font-size: 28px; font-weight: 300; line-height: 1; font-family: 'DM Mono', monospace; }
+  .stage-sub { font-size: 10px; color: var(--text-3); margin-top: 4px; }
+  .piece-list { display: flex; flex-direction: column; gap: 8px; }
+  .piece { display: flex; align-items: center; gap: 10px; }
+  .piece-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .piece-text { font-size: 13px; color: var(--text-2); flex: 1; }
+  .piece-tag { font-size: 10px; color: var(--text-3); font-family: 'DM Mono', monospace; }
+
+  /* AI */
+  .ai-prompt { background: rgba(255,255,255,0.025); border-radius: var(--radius-sm); border: 0.5px solid var(--border); padding: 14px 16px; margin-bottom: 14px; font-size: 13px; color: var(--text-3); font-style: italic; line-height: 1.5; }
+  .ai-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
+  .chip { font-size: 12px; padding: 7px 14px; border-radius: 20px; background: var(--sage-dim); border: 0.5px solid rgba(114,170,48,0.25); color: #8fcc40; cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
+  .chip:hover { background: rgba(114,170,48,0.22); }
+  .divider { height: 0.5px; background: var(--border); margin-bottom: 16px; }
+  .section-label { font-size: 10px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+  .stat-row { display: flex; gap: 10px; }
+  .stat { flex: 1; background: rgba(255,255,255,0.025); border-radius: var(--radius-sm); padding: 14px 12px; border: 0.5px solid var(--border); }
+  .stat-num { font-size: 26px; font-weight: 300; color: #8fcc40; font-family: 'DM Mono', monospace; line-height: 1; }
+  .stat-label { font-size: 11px; color: var(--text-3); margin-top: 5px; }
+
+  /* NORTHSTAR */
+  .northstar { text-align: center; padding: 18px 0 6px; }
+  .northstar-label { font-size: 9px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-3); margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .northstar-label::before, .northstar-label::after { content: ''; display: inline-block; width: 40px; height: 0.5px; background: var(--text-3); opacity: 0.4; }
+  .northstar-text { font-size: 16px; font-weight: 300; color: var(--text-2); letter-spacing: 0.03em; font-style: italic; line-height: 1.5; transition: color 0.3s; }
+  .northstar-text:hover { color: var(--text-1); }
+
+  /* FOOTER */
+  .footer { padding-top: 14px; border-top: 0.5px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-note { font-size: 11px; color: var(--text-3); }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-link { font-size: 11px; color: var(--text-3); cursor: pointer; transition: color 0.15s; }
+  .footer-link:hover { color: var(--text-2); }
+
+  /* FOCUS MODE */
+  .focus-overlay { display: none; position: fixed; inset: 0; z-index: 1000; background: var(--bg); padding: 32px 40px; overflow-y: auto; }
+  .focus-overlay.active { display: block; animation: focusIn 0.25s ease; }
+  @keyframes focusIn { from { opacity:0; transform:scale(0.98); } to { opacity:1; transform:scale(1); } }
+  .focus-inner { max-width: 860px; margin: 0 auto; }
+  .focus-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 0.5px solid var(--border); }
+  .focus-title { display: flex; align-items: center; gap: 10px; }
+  .focus-close { font-size: 13px; color: var(--text-3); cursor: pointer; padding: 7px 16px; border-radius: 20px; border: 0.5px solid var(--border-md); background: var(--bg-card); transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
+  .focus-close:hover { color: var(--text-1); }
+  .focus-card { background: var(--bg-card); border-radius: var(--radius); padding: 28px 32px; border: 0.5px solid var(--border); }
+  .focus-hint { font-size: 11px; color: var(--text-3); margin-top: 20px; text-align: center; }
+  .focus-overlay .cal-label { font-size: 17px; }
+  .focus-overlay .task-text { font-size: 16px; }
+  .focus-overlay .email-subject { font-size: 17px; }
+  .focus-overlay .goal-label { font-size: 15px; }
+
+  /* ANIMATIONS */
+  .card { animation: fadeUp 0.4s ease both; }
+  .col:nth-child(1) .card:nth-child(1) { animation-delay: 0.05s; }
+  .col:nth-child(1) .card:nth-child(2) { animation-delay: 0.1s; }
+  .col:nth-child(2) .card:nth-child(1) { animation-delay: 0.15s; }
+  .col:nth-child(2) .card:nth-child(2) { animation-delay: 0.2s; }
+  .col:nth-child(3) .card:nth-child(1) { animation-delay: 0.25s; }
+  .col:nth-child(3) .card:nth-child(2) { animation-delay: 0.3s; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+</style>
+</head>
+<body>
+<div class="root">
+
+  <div class="header">
+    <div class="header-left">
+      <div class="greeting">Good morning <span>✦</span></div>
+      <div class="subline" id="date-display">Loading your day...</div>
+    </div>
+    <div class="header-right">
+      <div class="live-pill"><div class="live-dot"></div><div class="live-text">LIVE</div></div>
+      <button class="theme-btn" onclick="toggleTheme()">
+        <span id="theme-icon" style="font-size:15px">☀️</span>
+        <span id="theme-label">Light mode</span>
+      </button>
+      <div class="clock-block">
+        <div class="clock" id="clock">--:-- --</div>
+        <div class="clock-date" id="clock-date">---</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <div class="col">
+      <div class="card card-teal" id="card-calendar" onclick="openFocus('calendar')">
+        <div class="card-header">
+          <div class="accent" style="background:var(--teal)"></div>
+          <div class="card-title">Today's schedule</div>
+          <div class="card-meta" id="cal-meta">Loading...</div>
+        </div>
+        <div id="cal-loading" style="font-size:13px;color:var(--text-3);padding:12px 0;">Loading your calendar...</div>
+        <div id="cal-connect" style="display:none;padding:12px 0;">
+          <div style="font-size:13px;color:var(--text-3);margin-bottom:12px;">Connect your Google Calendar to see today's events.</div>
+          <button onclick="connectCalendar()" style="font-size:12px;padding:8px 18px;border-radius:20px;border:0.5px solid rgba(29,170,126,0.4);background:rgba(29,170,126,0.1);color:var(--teal);cursor:pointer;font-family:'DM Sans',sans-serif;">Connect Google Calendar</button>
+        </div>
+        <div id="cal-events"></div>
+        <div id="cal-empty" style="display:none;font-size:13px;color:var(--text-3);padding:12px 0;">No events today — enjoy the open day!</div>
+      </div>
+
+      <div class="card card-amber" id="card-tasks" onclick="openFocus('tasks')">
+        <div class="card-header">
+          <div class="accent" style="background:var(--amber)"></div>
+          <div class="card-title">Tasks — needs attention</div>
+          <div class="card-meta" id="task-meta">4 remaining</div>
+        </div>
+        <div class="task-item" onclick="event.stopPropagation();toggleTask(this,4)">
+          <div class="task-check"><svg class="check-svg" width="11" height="9" viewBox="0 0 11 9"><polyline points="1,4.5 4,7.5 10,1" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-text">Approve client proposal draft</div>
+          <div class="badge badge-urgent">Urgent</div>
+        </div>
+        <div class="task-item" onclick="event.stopPropagation();toggleTask(this,4)">
+          <div class="task-check"><svg class="check-svg" width="11" height="9" viewBox="0 0 11 9"><polyline points="1,4.5 4,7.5 10,1" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-text">Upload ambient video #2 to YouTube</div>
+          <div class="badge badge-today">Today</div>
+        </div>
+        <div class="task-item" onclick="event.stopPropagation();toggleTask(this,4)">
+          <div class="task-check"><svg class="check-svg" width="11" height="9" viewBox="0 0 11 9"><polyline points="1,4.5 4,7.5 10,1" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-text">Review Suno audio renders</div>
+          <div class="badge badge-today">Today</div>
+        </div>
+        <div class="task-item" onclick="event.stopPropagation();toggleTask(this,4)">
+          <div class="task-check"><svg class="check-svg" width="11" height="9" viewBox="0 0 11 9"><polyline points="1,4.5 4,7.5 10,1" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-text">Follow up — invoice #047</div>
+          <div class="badge badge-urgent">Urgent</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card card-coral" id="card-email" onclick="openFocus('email')">
+        <div class="card-header">
+          <div class="accent" style="background:var(--coral)"></div>
+          <div class="card-title">Email drafts — ready to review</div>
+          <div class="card-meta" id="email-meta">2 pending</div>
+        </div>
+        <div class="email-item" id="email0">
+          <div class="email-from">Sarah M. — Client</div>
+          <div class="email-subject">Re: Project timeline update</div>
+          <div class="email-preview">Thanks for checking in — I wanted to share a quick update on where things stand...</div>
+          <div class="email-actions">
+            <div class="ebtn ebtn-approve" onclick="event.stopPropagation();approveEmail('email0',2)">Approve &amp; send</div>
+            <div class="ebtn ebtn-edit" onclick="event.stopPropagation()">Edit draft</div>
+          </div>
+        </div>
+        <div class="email-item" id="email1">
+          <div class="email-from">Newsletter inquiry</div>
+          <div class="email-subject">Collaboration opportunity</div>
+          <div class="email-preview">Really appreciate you reaching out — I'd love to explore this further...</div>
+          <div class="email-actions">
+            <div class="ebtn ebtn-approve" onclick="event.stopPropagation();approveEmail('email1',2)">Approve &amp; send</div>
+            <div class="ebtn ebtn-edit" onclick="event.stopPropagation()">Edit draft</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-purple" id="card-goals" onclick="openFocus('goals')">
+        <div class="card-header">
+          <div class="accent" style="background:var(--purple)"></div>
+          <div class="card-title">Business goals &amp; milestones</div>
+        </div>
+        <div class="goal-item">
+          <div class="goal-row"><div class="goal-label">YouTube — first 100 subscribers</div><div class="goal-pct">34%</div></div>
+          <div class="goal-bar-bg"><div class="goal-bar-fill" style="width:34%"></div></div>
+          <div class="goal-note">34 subscribers · Growing steadily</div>
+        </div>
+        <div class="goal-item">
+          <div class="goal-row"><div class="goal-label">Monthly revenue milestone</div><div class="goal-pct">61%</div></div>
+          <div class="goal-bar-bg"><div class="goal-bar-fill" style="width:61%"></div></div>
+          <div class="goal-note">On track · 15 days remaining</div>
+        </div>
+        <div class="goal-item">
+          <div class="goal-row"><div class="goal-label">Debt paydown — current phase</div><div class="goal-pct">48%</div></div>
+          <div class="goal-bar-bg"><div class="goal-bar-fill" style="width:48%"></div></div>
+          <div class="goal-note">Ahead of schedule</div>
+        </div>
+        <div class="goal-item">
+          <div class="goal-row"><div class="goal-label">Content — 10 videos published</div><div class="goal-pct">20%</div></div>
+          <div class="goal-bar-bg"><div class="goal-bar-fill" style="width:20%"></div></div>
+          <div class="goal-note">2 published · 8 to go</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card card-blue" id="card-creative" onclick="openFocus('creative')">
+        <div class="card-header">
+          <div class="accent" style="background:var(--blue)"></div>
+          <div class="card-title">Creative pipeline — ambient content</div>
+        </div>
+        <div class="pipeline-row">
+          <div class="stage"><div class="stage-label">Ideas</div><div class="stage-num" style="color:var(--text-2)">4</div><div class="stage-sub">Concepts</div></div>
+          <div class="stage"><div class="stage-label">Audio</div><div class="stage-num" style="color:var(--blue)">2</div><div class="stage-sub">Suno</div></div>
+          <div class="stage"><div class="stage-label">Visuals</div><div class="stage-num" style="color:var(--purple)">3</div><div class="stage-sub">Midjourney</div></div>
+          <div class="stage"><div class="stage-label">Edit</div><div class="stage-num" style="color:var(--amber)">1</div><div class="stage-sub">Canva</div></div>
+          <div class="stage"><div class="stage-label">Ready</div><div class="stage-num" style="color:var(--green)">1</div><div class="stage-sub">Upload</div></div>
+        </div>
+        <div class="piece-list">
+          <div class="piece"><div class="piece-dot" style="background:var(--green)"></div><div class="piece-text">Deep Ocean Drift</div><div class="piece-tag">Ready to upload</div></div>
+          <div class="piece"><div class="piece-dot" style="background:var(--blue)"></div><div class="piece-text">Forest Rain Ambience Vol. 2</div><div class="piece-tag">Audio in Suno</div></div>
+          <div class="piece"><div class="piece-dot" style="background:var(--purple)"></div><div class="piece-text">Mountain Mist at Dawn</div><div class="piece-tag">Visuals in MJ</div></div>
+          <div class="piece"><div class="piece-dot" style="background:var(--text-3)"></div><div class="piece-text">Twilight Ember Lounge</div><div class="piece-tag">Concept</div></div>
+        </div>
+      </div>
+
+      <div class="card card-sage" id="card-ai" onclick="openFocus('ai')">
+        <div class="card-header">
+          <div class="accent" style="background:var(--sage)"></div>
+          <div class="card-title">AI assistant</div>
+        </div>
+        <div class="ai-prompt">What would you like help with today? Click a suggestion or open Claude...</div>
+        <div class="ai-chips">
+          <div class="chip" onclick="event.stopPropagation()">Write YouTube description</div>
+          <div class="chip" onclick="event.stopPropagation()">Brainstorm content ideas</div>
+          <div class="chip" onclick="event.stopPropagation()">Review my goals</div>
+          <div class="chip" onclick="event.stopPropagation()">Draft follow-up email</div>
+          <div class="chip" onclick="event.stopPropagation()">Motivate me</div>
+          <div class="chip" onclick="event.stopPropagation()">Plan my week</div>
+        </div>
+        <div class="divider"></div>
+        <div class="section-label">Today's momentum</div>
+        <div class="stat-row">
+          <div class="stat"><div class="stat-num" id="stat-tasks">4</div><div class="stat-label">Tasks remaining</div></div>
+          <div class="stat"><div class="stat-num" id="stat-emails">2</div><div class="stat-label">Emails to review</div></div>
+          <div class="stat"><div class="stat-num">1</div><div class="stat-label">Ready to publish</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="northstar">
+    <div class="northstar-label">Northstar</div>
+    <div class="northstar-text">A life of creative freedom, vibrant health and financial peace</div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-note">Command Center · <span id="footer-date"></span> · Placeholder data — live connections coming soon</div>
+    <div class="footer-links">
+      <div class="footer-link">Open Claude</div>
+      <div class="footer-link">Open ClickUp</div>
+      <div class="footer-link">Open Calendar</div>
+      <div class="footer-link">Open YouTube</div>
+    </div>
+  </div>
+
+  <div class="focus-overlay" id="focus-overlay">
+    <div class="focus-inner">
+      <div class="focus-header">
+        <div class="focus-title">
+          <div id="focus-accent" class="accent"></div>
+          <div id="focus-label" class="card-title"></div>
+        </div>
+        <div class="focus-close" onclick="closeFocus()">&#x2715; Close focus &nbsp;·&nbsp; Esc</div>
+      </div>
+      <div class="focus-card" id="focus-content"></div>
+      <div class="focus-hint">Press Escape or click Close to return to your full dashboard</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ── Google Calendar OAuth ──
+  const CLIENT_ID = '279275140189-087f08fvmsvah2k871mgol1p91j9602t.apps.googleusercontent.com';
+  const CAL_ID    = 'iola@dragonspiritcoaching.com';
+  const SCOPES    = 'https://www.googleapis.com/auth/calendar.readonly';
+  const COLORS    = ['var(--teal)','var(--blue)','var(--purple)','var(--amber)','var(--coral)','var(--sage)'];
+  let accessToken = null;
+
+  function fmtTime(s) {
+    if (!s) return 'All day';
+    const d = new Date(s); let h = d.getHours(), m = d.getMinutes(), ap = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12; return h + ':' + String(m).padStart(2,'0') + ' ' + ap;
+  }
+  function duration(s, e) {
+    if (!s || !e) return '';
+    const diff = (new Date(e) - new Date(s)) / 60000;
+    if (diff < 60) return diff + ' min';
+    const h = Math.floor(diff/60), mn = diff%60; return h + ' hr' + (mn ? ' ' + mn + ' min' : '');
+  }
+
+  function showCalConnect() {
+    document.getElementById('cal-loading').style.display = 'none';
+    document.getElementById('cal-connect').style.display = 'block';
+  }
+
+  function connectCalendar() {
+    const params = new URLSearchParams({
+      client_id: CLIENT_ID,
+      redirect_uri: window.location.origin + window.location.pathname,
+      response_type: 'token',
+      scope: SCOPES,
+      prompt: 'consent'
+    });
+    window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth?' + params.toString();
+  }
+
+  function getTokenFromHash() {
+    const hash = window.location.hash.substring(1);
+    const params = new URLSearchParams(hash);
+    const token = params.get('access_token');
+    if (token) {
+      accessToken = token;
+      sessionStorage.setItem('cal_token', token);
+      window.history.replaceState(null, null, window.location.pathname);
+      return true;
+    }
+    const stored = sessionStorage.getItem('cal_token');
+    if (stored) { accessToken = stored; return true; }
+    return false;
+  }
+
+  async function loadCalendar() {
+    if (!accessToken) { showCalConnect(); return; }
+    const now = new Date();
+    const s = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0,0,0).toISOString();
+    const e = new Date(now.getFullYear(), now.getMonth(), now.getDate(),23,59,59).toISOString();
+    const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CAL_ID)}/events?timeMin=${s}&timeMax=${e}&singleEvents=true&orderBy=startTime&maxResults=20`;
+    try {
+      const res  = await fetch(url, { headers: { Authorization: 'Bearer ' + accessToken }});
+      if (res.status === 401) { sessionStorage.removeItem('cal_token'); showCalConnect(); return; }
+      const data   = await res.json();
+      const events = data.items || [];
+      document.getElementById('cal-loading').style.display = 'none';
+      document.getElementById('cal-connect').style.display = 'none';
+      if (!events.length) { document.getElementById('cal-empty').style.display='block'; document.getElementById('cal-meta').textContent='0 events'; return; }
+      document.getElementById('cal-meta').textContent = events.length + ' event' + (events.length!==1?'s':'');
+      const c = document.getElementById('cal-events'); c.innerHTML = '';
+      const nowT = new Date();
+      events.forEach((ev, i) => {
+        const st = ev.start.dateTime||ev.start.date, et = ev.end.dateTime||ev.end.date;
+        const past = et && new Date(et) < nowT;
+        const isNow = st && et && new Date(st) <= nowT && nowT <= new Date(et);
+        const col = COLORS[i % COLORS.length];
+        const div = document.createElement('div');
+        div.className = 'cal-item' + (past?' past':'');
+        div.innerHTML = `<div class="cal-dot" style="background:${past?'var(--text-3)':col}"></div>
+          <div class="cal-time" style="color:${past?'var(--text-3)':col}">${ev.start.dateTime?fmtTime(st):'All day'}</div>
+          <div class="cal-body"><div class="cal-label" style="${past?'color:var(--text-3)':''}">${ev.summary||'Untitled'}</div>
+          ${ev.start.dateTime?`<div class="cal-tag">${duration(st,et)}</div>`:''}</div>
+          ${isNow?'<div class="now-badge">Now</div>':''}`;
+        c.appendChild(div);
+      });
+    } catch(err) {
+      document.getElementById('cal-loading').textContent = 'Could not load calendar.';
+    }
+  }
+
+  if (getTokenFromHash()) {
+    loadCalendar();
+  } else {
+    showCalConnect();
+  }
+  setInterval(loadCalendar, 300000);
+
+  // ── Theme ──
+  function toggleTheme() {
+    const light = document.body.classList.toggle('light');
+    document.getElementById('theme-icon').textContent  = light ? '🌙' : '☀️';
+    document.getElementById('theme-label').textContent = light ? 'Dark mode' : 'Light mode';
+    localStorage.setItem('cc-theme', light ? 'light' : 'dark');
+  }
+  if (localStorage.getItem('cc-theme') === 'light') {
+    document.body.classList.add('light');
+    document.getElementById('theme-icon').textContent  = '🌙';
+    document.getElementById('theme-label').textContent = 'Dark mode';
+  }
+
+  // ── Clock ──
+  const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  function updateClock() {
+    const n = new Date(); let h = n.getHours(), m = n.getMinutes(), ap = h>=12?'PM':'AM';
+    h = h%12||12;
+    document.getElementById('clock').textContent = h+':'+String(m).padStart(2,'0')+' '+ap;
+    const ds = DAYS[n.getDay()]+', '+MONTHS[n.getMonth()]+' '+n.getDate()+', '+n.getFullYear();
+    document.getElementById('clock-date').textContent = ds;
+    document.getElementById('date-display').textContent = ds + '  ·  Your day at a glance — calm, clear, in motion';
+    document.getElementById('footer-date').textContent = MONTHS[n.getMonth()]+' '+n.getDate();
+  }
+  updateClock();
+  setInterval(updateClock, 15000);
+
+  // ── Tasks ──
+  let tasksDone = 0;
+  function toggleTask(el, total) {
+    const done = el.classList.toggle('done');
+    const chk  = el.querySelector('.task-check');
+    const bdg  = el.querySelector('.badge');
+    chk.classList.toggle('checked', done);
+    if (done) { tasksDone++; bdg.className='badge badge-done'; bdg.textContent='Done'; }
+    else { tasksDone=Math.max(0,tasksDone-1); bdg.className='badge badge-today'; bdg.textContent='Today'; }
+    const r = total - tasksDone;
+    document.getElementById('task-meta').textContent  = r + ' remaining';
+    document.getElementById('stat-tasks').textContent = r;
+  }
+
+  // ── Email ──
+  let emailsDone = 0;
+  function approveEmail(id, total) {
+    const el = document.getElementById(id);
+    el.classList.add('sent');
+    el.querySelector('.email-actions').innerHTML = '<div class="sent-label">Sent ✓</div>';
+    emailsDone++;
+    const r = total - emailsDone;
+    document.getElementById('email-meta').textContent  = r > 0 ? r+' pending' : 'All clear ✓';
+    document.getElementById('stat-emails').textContent = r;
+  }
+
+  // ── Focus Mode ──
+  const FOCUS = {
+    calendar: { label:"Today's schedule",             color:'var(--teal)'   },
+    tasks:    { label:'Tasks — needs attention',      color:'var(--amber)'  },
+    email:    { label:'Email drafts — ready to review',color:'var(--coral)' },
+    goals:    { label:'Business goals & milestones',  color:'var(--purple)' },
+    creative: { label:'Creative pipeline',            color:'var(--blue)'   },
+    ai:       { label:'AI assistant',                 color:'var(--sage)'   },
+  };
+
+  function openFocus(section) {
+    const cfg = FOCUS[section]; if (!cfg) return;
+    const src = document.getElementById('card-'+section); if (!src) return;
+    document.getElementById('focus-accent').style.background = cfg.color;
+    document.getElementById('focus-label').textContent = cfg.label;
+    const clone = src.cloneNode(true);
+    const hdr = clone.querySelector('.card-header'); if (hdr) hdr.remove();
+    clone.removeAttribute('onclick'); clone.removeAttribute('id');
+    document.getElementById('focus-content').innerHTML = clone.innerHTML;
+    document.getElementById('focus-overlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeFocus() {
+    document.getElementById('focus-overlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFocus(); });
+</script>
+</body>
+</html>
