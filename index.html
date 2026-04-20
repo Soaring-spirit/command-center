@@ -57,15 +57,18 @@
   body.light .card-blue   { border-color: rgba(40,120,192,0.35); }
   body.light .card-sage   { border-color: rgba(80,128,24,0.35);  }
   body.light .goal-bar-bg { background: rgba(0,0,0,0.06); }
-  body.light .stage       { background: rgba(0,0,0,0.03); }
+  body.light .stage-mini  { background: rgba(0,0,0,0.03); }
   body.light .ai-prompt   { background: rgba(0,0,0,0.03); }
   body.light .stat        { background: rgba(0,0,0,0.03); }
+  body.light .pk-card     { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.1); }
+  body.light .pk-notes    { background: rgba(0,0,0,0.05); }
 
   html, body {
     width: 100%; min-height: 100vh;
     background: var(--bg);
     font-family: 'DM Sans', sans-serif;
     color: var(--text-1);
+    font-size: 16px;
     transition: background 0.45s, color 0.45s;
   }
 
@@ -73,34 +76,34 @@
     position: relative;
     max-width: 1800px; width: 100%;
     margin: 0 auto;
-    padding: 24px 28px;
+    padding: 28px 32px;
     min-height: 100vh;
-    display: flex; flex-direction: column; gap: 20px;
+    display: flex; flex-direction: column; gap: 24px;
   }
 
   /* HEADER */
-  .header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 18px; border-bottom: 0.5px solid var(--border); }
-  .header-left { display: flex; flex-direction: column; gap: 4px; }
-  .greeting { font-size: 26px; font-weight: 300; letter-spacing: -0.02em; }
+  .header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 20px; border-bottom: 0.5px solid var(--border); }
+  .header-left { display: flex; flex-direction: column; gap: 5px; }
+  .greeting { font-size: 30px; font-weight: 300; letter-spacing: -0.02em; }
   .greeting span { font-weight: 500; }
-  .subline { font-size: 13px; color: var(--text-3); }
-  .header-right { display: flex; align-items: center; gap: 20px; }
-  .live-pill { display: flex; align-items: center; gap: 7px; padding: 6px 14px; border-radius: 20px; border: 0.5px solid rgba(45,202,140,0.2); background: rgba(45,202,140,0.06); }
-  .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: breathe 2.5s ease-in-out infinite; }
+  .subline { font-size: 14px; color: var(--text-3); }
+  .header-right { display: flex; align-items: center; gap: 22px; }
+  .live-pill { display: flex; align-items: center; gap: 7px; padding: 7px 16px; border-radius: 20px; border: 0.5px solid rgba(45,202,140,0.2); background: rgba(45,202,140,0.06); }
+  .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: breathe 2.5s ease-in-out infinite; }
   @keyframes breathe { 0%,100%{opacity:1} 50%{opacity:0.4} }
-  .live-text { font-size: 11px; color: var(--green); letter-spacing: 0.05em; font-family: 'DM Mono', monospace; }
-  .theme-btn { background: var(--bg-card); border: 0.5px solid var(--border-md); border-radius: 20px; padding: 7px 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; color: var(--text-2); font-family: 'DM Sans', sans-serif; font-size: 12px; transition: all 0.2s; }
+  .live-text { font-size: 12px; color: var(--green); letter-spacing: 0.05em; font-family: 'DM Mono', monospace; }
+  .theme-btn { background: var(--bg-card); border: 0.5px solid var(--border-md); border-radius: 20px; padding: 8px 18px; cursor: pointer; display: flex; align-items: center; gap: 8px; color: var(--text-2); font-family: 'DM Sans', sans-serif; font-size: 13px; transition: all 0.2s; }
   .theme-btn:hover { color: var(--text-1); }
   .clock-block { text-align: right; }
-  .clock { font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 400; letter-spacing: -0.02em; line-height: 1; }
-  .clock-date { font-size: 11px; color: var(--text-3); margin-top: 3px; letter-spacing: 0.04em; }
+  .clock { font-family: 'DM Mono', monospace; font-size: 32px; font-weight: 400; letter-spacing: -0.02em; line-height: 1; }
+  .clock-date { font-size: 12px; color: var(--text-3); margin-top: 4px; letter-spacing: 0.04em; }
 
   /* GRID */
-  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; flex: 1; }
-  .col { display: flex; flex-direction: column; gap: 16px; }
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: start; flex: 1; }
+  .col { display: flex; flex-direction: column; gap: 18px; }
 
   /* CARD */
-  .card { background: var(--bg-card); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 22px 24px; cursor: pointer; transition: border-color 0.3s, transform 0.15s; }
+  .card { background: var(--bg-card); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 26px 28px; cursor: pointer; transition: border-color 0.3s, transform 0.15s; }
   .card:hover { transform: translateY(-1px); }
   .card-teal   { border-color: rgba(29,170,126,0.28); } .card-teal:hover   { border-color: rgba(29,170,126,0.5); }
   .card-amber  { border-color: rgba(232,160,32,0.28); } .card-amber:hover  { border-color: rgba(232,160,32,0.5); }
@@ -108,114 +111,153 @@
   .card-purple { border-color: rgba(139,127,232,0.28);} .card-purple:hover { border-color: rgba(139,127,232,0.5);}
   .card-blue   { border-color: rgba(74,158,224,0.28); } .card-blue:hover   { border-color: rgba(74,158,224,0.5); }
   .card-sage   { border-color: rgba(114,170,48,0.28); } .card-sage:hover   { border-color: rgba(114,170,48,0.5); }
-  .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
-  .accent { width: 3px; height: 22px; border-radius: 2px; flex-shrink: 0; }
-  .card-title { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); }
-  .card-meta { margin-left: auto; font-size: 11px; color: var(--text-3); font-family: 'DM Mono', monospace; }
+  .card-header { display: flex; align-items: center; gap: 11px; margin-bottom: 22px; }
+  .accent { width: 3px; height: 24px; border-radius: 2px; flex-shrink: 0; }
+  .card-title { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); }
+  .card-meta { margin-left: auto; font-size: 12px; color: var(--text-3); font-family: 'DM Mono', monospace; }
 
   /* CALENDAR */
-  .cal-item { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 0.5px solid var(--border); transition: opacity 0.5s; }
+  .cal-item { display: flex; align-items: flex-start; gap: 14px; padding: 13px 0; border-bottom: 0.5px solid var(--border); transition: opacity 0.5s; }
   .cal-item:last-child { border-bottom: none; padding-bottom: 0; }
   .cal-item.past { opacity: 0.25; }
-  .cal-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
-  .cal-time { font-size: 12px; font-weight: 500; min-width: 60px; font-family: 'DM Mono', monospace; margin-top: 2px; }
+  .cal-dot { width: 9px; height: 9px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+  .cal-time { font-size: 13px; font-weight: 500; min-width: 66px; font-family: 'DM Mono', monospace; margin-top: 2px; }
   .cal-body { flex: 1; }
-  .cal-label { font-size: 15px; color: var(--text-1); line-height: 1.3; }
-  .cal-tag { font-size: 11px; color: var(--text-3); margin-top: 3px; }
-  .now-badge { font-size: 10px; padding: 3px 9px; border-radius: 20px; background: var(--teal-dim); color: var(--teal); font-family: 'DM Mono', monospace; flex-shrink: 0; border: 0.5px solid rgba(29,170,126,0.25); }
+  .cal-label { font-size: 16px; color: var(--text-1); line-height: 1.3; }
+  .cal-tag { font-size: 12px; color: var(--text-3); margin-top: 3px; }
+  .now-badge { font-size: 11px; padding: 3px 10px; border-radius: 20px; background: var(--teal-dim); color: var(--teal); font-family: 'DM Mono', monospace; flex-shrink: 0; border: 0.5px solid rgba(29,170,126,0.25); }
 
   /* TASKS */
-  .task-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 0.5px solid var(--border); transition: opacity 0.4s; }
+  .task-item { display: flex; align-items: center; gap: 13px; padding: 12px 0; border-bottom: 0.5px solid var(--border); transition: opacity 0.4s; }
   .task-item:last-child { border-bottom: none; }
   .task-item.done { opacity: 0.22; }
-  .task-check { width: 20px; height: 20px; border-radius: 5px; border: 1.5px solid rgba(232,160,32,0.35); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .task-check { width: 22px; height: 22px; border-radius: 6px; border: 1.5px solid rgba(232,160,32,0.35); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
   .task-check.checked { background: var(--amber-dim); border-color: var(--amber); }
   .check-svg { display: none; }
   .task-check.checked .check-svg { display: block; }
-  .task-text { font-size: 14px; color: var(--text-1); flex: 1; }
+  .task-text { font-size: 15px; color: var(--text-1); flex: 1; }
   .task-item.done .task-text { text-decoration: line-through; color: var(--text-3); }
-  .badge { font-size: 10px; padding: 3px 10px; border-radius: 20px; font-weight: 500; flex-shrink: 0; font-family: 'DM Mono', monospace; }
+  .badge { font-size: 11px; padding: 3px 11px; border-radius: 20px; font-weight: 500; flex-shrink: 0; font-family: 'DM Mono', monospace; }
   .badge-urgent { background: var(--amber-dim); color: var(--amber); border: 0.5px solid rgba(232,160,32,0.25); }
   .badge-today  { background: rgba(255,255,255,0.04); color: var(--text-3); border: 0.5px solid var(--border); }
   .badge-done   { background: rgba(45,202,140,0.1); color: var(--green); border: 0.5px solid rgba(45,202,140,0.2); }
 
   /* EMAIL */
-  .email-item { padding: 13px 0; border-bottom: 0.5px solid var(--border); transition: opacity 0.5s; }
+  .email-item { padding: 14px 0; border-bottom: 0.5px solid var(--border); transition: opacity 0.5s; }
   .email-item:last-child { border-bottom: none; padding-bottom: 0; }
   .email-item.sent { opacity: 0.18; pointer-events: none; }
-  .email-from { font-size: 12px; color: var(--coral); font-weight: 500; margin-bottom: 4px; }
-  .email-subject { font-size: 15px; color: var(--text-1); margin-bottom: 4px; line-height: 1.3; }
-  .email-preview { font-size: 12px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 11px; }
-  .email-actions { display: flex; gap: 8px; }
-  .ebtn { font-size: 11px; padding: 6px 14px; border-radius: var(--radius-sm); border: 0.5px solid; cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
+  .email-from { font-size: 13px; color: var(--coral); font-weight: 500; margin-bottom: 5px; }
+  .email-subject { font-size: 16px; color: var(--text-1); margin-bottom: 5px; line-height: 1.3; }
+  .email-preview { font-size: 13px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 12px; }
+  .email-actions { display: flex; gap: 9px; }
+  .ebtn { font-size: 12px; padding: 7px 16px; border-radius: var(--radius-sm); border: 0.5px solid; cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
   .ebtn-approve { border-color: rgba(45,202,140,0.3); color: var(--green); background: rgba(45,202,140,0.07); }
   .ebtn-approve:hover { background: rgba(45,202,140,0.15); }
   .ebtn-edit { border-color: var(--border-md); color: var(--text-3); background: transparent; }
-  .sent-label { font-size: 12px; color: var(--green); font-family: 'DM Mono', monospace; }
+  .sent-label { font-size: 13px; color: var(--green); font-family: 'DM Mono', monospace; }
 
   /* GOALS */
-  .goal-item { padding: 13px 0; border-bottom: 0.5px solid var(--border); }
+  .goal-item { padding: 14px 0; border-bottom: 0.5px solid var(--border); }
   .goal-item:last-child { border-bottom: none; padding-bottom: 0; }
-  .goal-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 9px; }
-  .goal-label { font-size: 14px; color: var(--text-1); }
-  .goal-pct { font-size: 13px; color: var(--purple); font-family: 'DM Mono', monospace; font-weight: 500; }
-  .goal-bar-bg { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
-  .goal-bar-fill { height: 4px; border-radius: 2px; background: var(--purple); }
-  .goal-note { font-size: 11px; color: var(--text-3); margin-top: 5px; }
+  .goal-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .goal-label { font-size: 15px; color: var(--text-1); }
+  .goal-pct { font-size: 14px; color: var(--purple); font-family: 'DM Mono', monospace; font-weight: 500; }
+  .goal-bar-bg { height: 5px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+  .goal-bar-fill { height: 5px; border-radius: 3px; background: var(--purple); }
+  .goal-note { font-size: 12px; color: var(--text-3); margin-top: 6px; }
 
-  /* CREATIVE */
-  .pipeline-row { display: flex; gap: 8px; margin-bottom: 16px; }
-  .stage { flex: 1; background: rgba(255,255,255,0.025); border-radius: var(--radius-sm); padding: 13px 10px 11px; border: 0.5px solid var(--border); text-align: center; }
-  .stage-label { font-size: 9px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 7px; }
-  .stage-num { font-size: 28px; font-weight: 300; line-height: 1; font-family: 'DM Mono', monospace; }
-  .stage-sub { font-size: 10px; color: var(--text-3); margin-top: 4px; }
-  .piece-list { display: flex; flex-direction: column; gap: 8px; }
+  /* CREATIVE — mini summary card */
+  .pipeline-mini { display: flex; gap: 8px; margin-bottom: 18px; }
+  .stage-mini { flex: 1; background: rgba(255,255,255,0.025); border-radius: var(--radius-sm); padding: 14px 8px 12px; border: 0.5px solid var(--border); text-align: center; }
+  .stage-mini-label { font-size: 10px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 7px; }
+  .stage-mini-num { font-size: 30px; font-weight: 300; line-height: 1; font-family: 'DM Mono', monospace; }
+  .stage-mini-sub { font-size: 11px; color: var(--text-3); margin-top: 5px; }
+  .piece-list { display: flex; flex-direction: column; gap: 9px; }
   .piece { display: flex; align-items: center; gap: 10px; }
-  .piece-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-  .piece-text { font-size: 13px; color: var(--text-2); flex: 1; }
-  .piece-tag { font-size: 10px; color: var(--text-3); font-family: 'DM Mono', monospace; }
+  .piece-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .piece-text { font-size: 14px; color: var(--text-2); flex: 1; }
+  .piece-tag { font-size: 11px; color: var(--text-3); font-family: 'DM Mono', monospace; }
 
   /* AI */
-  .ai-prompt { background: rgba(255,255,255,0.025); border-radius: var(--radius-sm); border: 0.5px solid var(--border); padding: 14px 16px; margin-bottom: 14px; font-size: 13px; color: var(--text-3); font-style: italic; line-height: 1.5; }
-  .ai-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
-  .chip { font-size: 12px; padding: 7px 14px; border-radius: 20px; background: var(--sage-dim); border: 0.5px solid rgba(114,170,48,0.25); color: #8fcc40; cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
+  .ai-prompt { background: rgba(255,255,255,0.025); border-radius: var(--radius-sm); border: 0.5px solid var(--border); padding: 16px 18px; margin-bottom: 16px; font-size: 14px; color: var(--text-3); font-style: italic; line-height: 1.5; }
+  .ai-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .chip { font-size: 13px; padding: 8px 16px; border-radius: 20px; background: var(--sage-dim); border: 0.5px solid rgba(114,170,48,0.25); color: #8fcc40; cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
   .chip:hover { background: rgba(114,170,48,0.22); }
-  .divider { height: 0.5px; background: var(--border); margin-bottom: 16px; }
-  .section-label { font-size: 10px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+  .divider { height: 0.5px; background: var(--border); margin-bottom: 18px; }
+  .section-label { font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 13px; }
   .stat-row { display: flex; gap: 10px; }
-  .stat { flex: 1; background: rgba(255,255,255,0.025); border-radius: var(--radius-sm); padding: 14px 12px; border: 0.5px solid var(--border); }
-  .stat-num { font-size: 26px; font-weight: 300; color: #8fcc40; font-family: 'DM Mono', monospace; line-height: 1; }
-  .stat-label { font-size: 11px; color: var(--text-3); margin-top: 5px; }
+  .stat { flex: 1; background: rgba(255,255,255,0.025); border-radius: var(--radius-sm); padding: 16px 14px; border: 0.5px solid var(--border); }
+  .stat-num { font-size: 28px; font-weight: 300; color: #8fcc40; font-family: 'DM Mono', monospace; line-height: 1; }
+  .stat-label { font-size: 12px; color: var(--text-3); margin-top: 6px; }
 
   /* NORTHSTAR */
-  .northstar { text-align: center; padding: 18px 0 6px; }
-  .northstar-label { font-size: 9px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-3); margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .northstar { text-align: center; padding: 20px 0 6px; }
+  .northstar-label { font-size: 10px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-3); margin-bottom: 9px; display: flex; align-items: center; justify-content: center; gap: 10px; }
   .northstar-label::before, .northstar-label::after { content: ''; display: inline-block; width: 40px; height: 0.5px; background: var(--text-3); opacity: 0.4; }
-  .northstar-text { font-size: 16px; font-weight: 300; color: var(--text-2); letter-spacing: 0.03em; font-style: italic; line-height: 1.5; transition: color 0.3s; }
+  .northstar-text { font-size: 18px; font-weight: 300; color: var(--text-2); letter-spacing: 0.03em; font-style: italic; line-height: 1.5; transition: color 0.3s; }
   .northstar-text:hover { color: var(--text-1); }
 
   /* FOOTER */
-  .footer { padding-top: 14px; border-top: 0.5px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-  .footer-note { font-size: 11px; color: var(--text-3); }
-  .footer-links { display: flex; gap: 20px; }
-  .footer-link { font-size: 11px; color: var(--text-3); cursor: pointer; transition: color 0.15s; }
+  .footer { padding-top: 16px; border-top: 0.5px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-note { font-size: 12px; color: var(--text-3); }
+  .footer-links { display: flex; gap: 22px; }
+  .footer-link { font-size: 12px; color: var(--text-3); cursor: pointer; transition: color 0.15s; }
   .footer-link:hover { color: var(--text-2); }
 
   /* FOCUS MODE */
-  .focus-overlay { display: none; position: fixed; inset: 0; z-index: 1000; background: var(--bg); padding: 32px 40px; overflow-y: auto; }
+  .focus-overlay { display: none; position: fixed; inset: 0; z-index: 1000; background: var(--bg); padding: 36px 44px; overflow-y: auto; }
   .focus-overlay.active { display: block; animation: focusIn 0.25s ease; }
   @keyframes focusIn { from { opacity:0; transform:scale(0.98); } to { opacity:1; transform:scale(1); } }
-  .focus-inner { max-width: 860px; margin: 0 auto; }
-  .focus-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 0.5px solid var(--border); }
-  .focus-title { display: flex; align-items: center; gap: 10px; }
-  .focus-close { font-size: 13px; color: var(--text-3); cursor: pointer; padding: 7px 16px; border-radius: 20px; border: 0.5px solid var(--border-md); background: var(--bg-card); transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
+  .focus-inner { max-width: 1100px; margin: 0 auto; }
+  .focus-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; padding-bottom: 18px; border-bottom: 0.5px solid var(--border); }
+  .focus-title { display: flex; align-items: center; gap: 11px; }
+  .focus-close { font-size: 14px; color: var(--text-3); cursor: pointer; padding: 8px 18px; border-radius: 20px; border: 0.5px solid var(--border-md); background: var(--bg-card); transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
   .focus-close:hover { color: var(--text-1); }
-  .focus-card { background: var(--bg-card); border-radius: var(--radius); padding: 28px 32px; border: 0.5px solid var(--border); }
-  .focus-hint { font-size: 11px; color: var(--text-3); margin-top: 20px; text-align: center; }
-  .focus-overlay .cal-label { font-size: 17px; }
-  .focus-overlay .task-text { font-size: 16px; }
-  .focus-overlay .email-subject { font-size: 17px; }
-  .focus-overlay .goal-label { font-size: 15px; }
+  .focus-card { background: var(--bg-card); border-radius: var(--radius); padding: 30px 34px; border: 0.5px solid var(--border); }
+  .focus-hint { font-size: 12px; color: var(--text-3); margin-top: 22px; text-align: center; }
+  .focus-overlay .cal-label { font-size: 18px; }
+  .focus-overlay .task-text { font-size: 17px; }
+  .focus-overlay .email-subject { font-size: 18px; }
+  .focus-overlay .goal-label { font-size: 16px; }
+
+  /* KANBAN (focus mode) */
+  .pk-wrap { font-family: 'DM Sans', sans-serif; }
+  .pk-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .pk-topbar h2 { font-size: 17px; font-weight: 500; color: var(--text-1); }
+  .pk-add-btn { font-size: 13px; padding: 7px 16px; border-radius: var(--radius-sm); border: 0.5px solid var(--border-md); background: var(--bg-card); color: var(--text-1); cursor: pointer; font-family: 'DM Sans', sans-serif; }
+  .pk-add-btn:hover { border-color: var(--blue); color: var(--blue); }
+  .pk-board { display: flex; gap: 14px; overflow-x: auto; padding-bottom: 8px; }
+  .pk-col { flex: 0 0 210px; display: flex; flex-direction: column; gap: 10px; }
+  .pk-col-header { padding: 11px 13px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: space-between; }
+  .pk-col-label { font-size: 14px; font-weight: 500; }
+  .pk-col-count { font-size: 12px; padding: 2px 10px; border-radius: 20px; font-weight: 500; font-family: 'DM Mono', monospace; }
+  .pk-cards { display: flex; flex-direction: column; gap: 8px; min-height: 90px; }
+  .pk-card { background: rgba(255,255,255,0.04); border: 0.5px solid var(--border); border-radius: var(--radius-sm); border-left-width: 4px; border-left-style: solid; padding: 12px 14px; cursor: grab; user-select: none; }
+  .pk-card:active { cursor: grabbing; opacity: 0.8; }
+  .pk-card.dragging { opacity: 0.35; }
+  .pk-card.drag-over { outline: 1.5px solid var(--blue); }
+  .pk-card-title { font-size: 14px; font-weight: 500; color: var(--text-1); margin-bottom: 8px; line-height: 1.35; }
+  .pk-notes { width: 100%; border: none; background: rgba(255,255,255,0.06); border-radius: 5px; font-size: 13px; color: var(--text-2); font-family: 'DM Sans', sans-serif; resize: none; padding: 7px 9px; min-height: 56px; outline: none; line-height: 1.5; }
+  .pk-notes:focus { background: rgba(255,255,255,0.09); }
+  .pk-notes::placeholder { color: var(--text-3); }
+  .pk-card-footer { display: flex; justify-content: flex-end; margin-top: 7px; }
+  .pk-del { font-size: 11px; padding: 2px 7px; border: none; background: transparent; color: var(--text-3); cursor: pointer; border-radius: 4px; }
+  .pk-del:hover { color: var(--coral); }
+  .pk-drop-zone { border: 1.5px dashed var(--border-md); border-radius: var(--radius-sm); min-height: 64px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--text-3); }
+  .pk-drop-zone.drag-over { border-color: var(--blue); background: var(--blue-dim); }
+  .pk-add-card { font-size: 12px; padding: 7px 10px; border-radius: var(--radius-sm); border: 0.5px dashed var(--border-md); background: transparent; color: var(--text-3); cursor: pointer; text-align: left; width: 100%; font-family: 'DM Sans', sans-serif; }
+  .pk-add-card:hover { background: rgba(255,255,255,0.04); color: var(--text-2); }
+
+  /* MODAL */
+  .pk-modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center; }
+  .pk-modal-bg.open { display: flex; }
+  .pk-modal { background: var(--bg-card); border-radius: var(--radius); border: 0.5px solid var(--border-md); padding: 24px; width: 300px; }
+  .pk-modal h3 { font-size: 16px; font-weight: 500; margin-bottom: 16px; color: var(--text-1); }
+  .pk-modal input, .pk-modal select { width: 100%; font-size: 14px; padding: 9px 12px; border-radius: var(--radius-sm); border: 0.5px solid var(--border-md); background: rgba(255,255,255,0.05); color: var(--text-1); margin-bottom: 12px; font-family: 'DM Sans', sans-serif; outline: none; }
+  .pk-modal-footer { display: flex; gap: 9px; justify-content: flex-end; }
+  .pk-modal-footer button { font-size: 13px; padding: 7px 18px; border-radius: var(--radius-sm); cursor: pointer; font-family: 'DM Sans', sans-serif; }
+  .pk-btn-cancel { border: 0.5px solid var(--border-md); background: transparent; color: var(--text-2); }
+  .pk-btn-add { border: none; background: var(--blue); color: #fff; font-weight: 500; }
 
   /* ANIMATIONS */
   .card { animation: fadeUp 0.4s ease both; }
@@ -258,13 +300,13 @@
           <div class="card-title">Today's schedule</div>
           <div class="card-meta" id="cal-meta">Loading...</div>
         </div>
-        <div id="cal-loading" style="font-size:13px;color:var(--text-3);padding:12px 0;">Loading your calendar...</div>
-        <div id="cal-connect" style="display:none;padding:12px 0;">
-          <div style="font-size:13px;color:var(--text-3);margin-bottom:12px;">Connect your Google Calendar to see today's events.</div>
-          <button onclick="connectCalendar()" style="font-size:12px;padding:8px 18px;border-radius:20px;border:0.5px solid rgba(29,170,126,0.4);background:rgba(29,170,126,0.1);color:var(--teal);cursor:pointer;font-family:'DM Sans',sans-serif;">Connect Google Calendar</button>
+        <div id="cal-loading" style="font-size:14px;color:var(--text-3);padding:14px 0;">Loading your calendar...</div>
+        <div id="cal-connect" style="display:none;padding:14px 0;">
+          <div style="font-size:14px;color:var(--text-3);margin-bottom:14px;">Connect your Google Calendar to see today's events.</div>
+          <button onclick="connectCalendar()" style="font-size:13px;padding:9px 20px;border-radius:20px;border:0.5px solid rgba(29,170,126,0.4);background:rgba(29,170,126,0.1);color:var(--teal);cursor:pointer;font-family:'DM Sans',sans-serif;">Connect Google Calendar</button>
         </div>
         <div id="cal-events"></div>
-        <div id="cal-empty" style="display:none;font-size:13px;color:var(--text-3);padding:12px 0;">No events today — enjoy the open day!</div>
+        <div id="cal-empty" style="display:none;font-size:14px;color:var(--text-3);padding:14px 0;">No events today — enjoy the open day!</div>
       </div>
 
       <div class="card card-amber" id="card-tasks" onclick="openFocus('tasks')">
@@ -352,23 +394,21 @@
     </div>
 
     <div class="col">
+      <!-- CREATIVE — mini summary only, click opens kanban focus -->
       <div class="card card-blue" id="card-creative" onclick="openFocus('creative')">
         <div class="card-header">
           <div class="accent" style="background:var(--blue)"></div>
           <div class="card-title">Creative pipeline — ambient content</div>
         </div>
-        <div class="pipeline-row">
-          <div class="stage"><div class="stage-label">Ideas</div><div class="stage-num" style="color:var(--text-2)">4</div><div class="stage-sub">Concepts</div></div>
-          <div class="stage"><div class="stage-label">Audio</div><div class="stage-num" style="color:var(--blue)">2</div><div class="stage-sub">Suno</div></div>
-          <div class="stage"><div class="stage-label">Visuals</div><div class="stage-num" style="color:var(--purple)">3</div><div class="stage-sub">Midjourney</div></div>
-          <div class="stage"><div class="stage-label">Edit</div><div class="stage-num" style="color:var(--amber)">1</div><div class="stage-sub">Canva</div></div>
-          <div class="stage"><div class="stage-label">Ready</div><div class="stage-num" style="color:var(--green)">1</div><div class="stage-sub">Upload</div></div>
+        <div class="pipeline-mini" id="pipeline-mini">
+          <div class="stage-mini"><div class="stage-mini-label">Ideas</div><div class="stage-mini-num" id="mini-ideas" style="color:var(--text-2)">4</div><div class="stage-mini-sub">Concepts</div></div>
+          <div class="stage-mini"><div class="stage-mini-label">Audio</div><div class="stage-mini-num" id="mini-audio" style="color:var(--blue)">2</div><div class="stage-mini-sub">Suno</div></div>
+          <div class="stage-mini"><div class="stage-mini-label">Visuals</div><div class="stage-mini-num" id="mini-visuals" style="color:var(--purple)">3</div><div class="stage-mini-sub">Midjourney</div></div>
+          <div class="stage-mini"><div class="stage-mini-label">Edit</div><div class="stage-mini-num" id="mini-edit" style="color:var(--amber)">1</div><div class="stage-mini-sub">Canva</div></div>
+          <div class="stage-mini"><div class="stage-mini-label">Ready</div><div class="stage-mini-num" id="mini-ready" style="color:var(--green)">1</div><div class="stage-mini-sub">Upload</div></div>
         </div>
-        <div class="piece-list">
-          <div class="piece"><div class="piece-dot" style="background:var(--green)"></div><div class="piece-text">Deep Ocean Drift</div><div class="piece-tag">Ready to upload</div></div>
-          <div class="piece"><div class="piece-dot" style="background:var(--blue)"></div><div class="piece-text">Forest Rain Ambience Vol. 2</div><div class="piece-tag">Audio in Suno</div></div>
-          <div class="piece"><div class="piece-dot" style="background:var(--purple)"></div><div class="piece-text">Mountain Mist at Dawn</div><div class="piece-tag">Visuals in MJ</div></div>
-          <div class="piece"><div class="piece-dot" style="background:var(--text-3)"></div><div class="piece-text">Twilight Ember Lounge</div><div class="piece-tag">Concept</div></div>
+        <div class="piece-list" id="top-pieces">
+          <!-- populated by JS from kanban data -->
         </div>
       </div>
 
@@ -391,7 +431,7 @@
         <div class="stat-row">
           <div class="stat"><div class="stat-num" id="stat-tasks">4</div><div class="stat-label">Tasks remaining</div></div>
           <div class="stat"><div class="stat-num" id="stat-emails">2</div><div class="stat-label">Emails to review</div></div>
-          <div class="stat"><div class="stat-num">1</div><div class="stat-label">Ready to publish</div></div>
+          <div class="stat"><div class="stat-num" id="stat-ready">1</div><div class="stat-label">Ready to publish</div></div>
         </div>
       </div>
     </div>
@@ -413,6 +453,7 @@
     </div>
   </div>
 
+  <!-- FOCUS OVERLAY -->
   <div class="focus-overlay" id="focus-overlay">
     <div class="focus-inner">
       <div class="focus-header">
@@ -427,8 +468,26 @@
     </div>
   </div>
 
-</div>
+  <!-- KANBAN MODAL (add project) -->
+  <div class="pk-modal-bg" id="pk-modal">
+    <div class="pk-modal">
+      <h3>Add new project</h3>
+      <input type="text" id="pk-new-title" placeholder="Video title..." />
+      <select id="pk-new-stage">
+        <option value="ideas">Ideas</option>
+        <option value="audio">Audio — Suno</option>
+        <option value="visuals">Visuals — Midjourney</option>
+        <option value="edit">Edit — Canva</option>
+        <option value="ready">Ready to upload</option>
+      </select>
+      <div class="pk-modal-footer">
+        <button class="pk-btn-cancel" onclick="pkCloseModal()">Cancel</button>
+        <button class="pk-btn-add" onclick="pkAddCard()">Add project</button>
+      </div>
+    </div>
+  </div>
 
+</div>
 <script>
   // ── Google Calendar OAuth ──
   const CLIENT_ID = '279275140189-087f08fvmsvah2k871mgol1p91j9602t.apps.googleusercontent.com';
@@ -453,33 +512,17 @@
     document.getElementById('cal-loading').style.display = 'none';
     document.getElementById('cal-connect').style.display = 'block';
   }
-
   function connectCalendar() {
-    const params = new URLSearchParams({
-      client_id: CLIENT_ID,
-      redirect_uri: window.location.origin + window.location.pathname,
-      response_type: 'token',
-      scope: SCOPES,
-      prompt: 'consent'
-    });
+    const params = new URLSearchParams({ client_id: CLIENT_ID, redirect_uri: window.location.origin + window.location.pathname, response_type: 'token', scope: SCOPES, prompt: 'consent' });
     window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth?' + params.toString();
   }
-
   function getTokenFromHash() {
-    const hash = window.location.hash.substring(1);
-    const params = new URLSearchParams(hash);
-    const token = params.get('access_token');
-    if (token) {
-      accessToken = token;
-      sessionStorage.setItem('cal_token', token);
-      window.history.replaceState(null, null, window.location.pathname);
-      return true;
-    }
+    const hash = window.location.hash.substring(1), params = new URLSearchParams(hash), token = params.get('access_token');
+    if (token) { accessToken = token; sessionStorage.setItem('cal_token', token); window.history.replaceState(null, null, window.location.pathname); return true; }
     const stored = sessionStorage.getItem('cal_token');
     if (stored) { accessToken = stored; return true; }
     return false;
   }
-
   async function loadCalendar() {
     if (!accessToken) { showCalConnect(); return; }
     const now = new Date();
@@ -487,10 +530,9 @@
     const e = new Date(now.getFullYear(), now.getMonth(), now.getDate(),23,59,59).toISOString();
     const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CAL_ID)}/events?timeMin=${s}&timeMax=${e}&singleEvents=true&orderBy=startTime&maxResults=20`;
     try {
-      const res  = await fetch(url, { headers: { Authorization: 'Bearer ' + accessToken }});
+      const res = await fetch(url, { headers: { Authorization: 'Bearer ' + accessToken }});
       if (res.status === 401) { sessionStorage.removeItem('cal_token'); showCalConnect(); return; }
-      const data   = await res.json();
-      const events = data.items || [];
+      const data = await res.json(), events = data.items || [];
       document.getElementById('cal-loading').style.display = 'none';
       document.getElementById('cal-connect').style.display = 'none';
       if (!events.length) { document.getElementById('cal-empty').style.display='block'; document.getElementById('cal-meta').textContent='0 events'; return; }
@@ -499,8 +541,7 @@
       const nowT = new Date();
       events.forEach((ev, i) => {
         const st = ev.start.dateTime||ev.start.date, et = ev.end.dateTime||ev.end.date;
-        const past = et && new Date(et) < nowT;
-        const isNow = st && et && new Date(st) <= nowT && nowT <= new Date(et);
+        const past = et && new Date(et) < nowT, isNow = st && et && new Date(st) <= nowT && nowT <= new Date(et);
         const col = COLORS[i % COLORS.length];
         const div = document.createElement('div');
         div.className = 'cal-item' + (past?' past':'');
@@ -511,16 +552,9 @@
           ${isNow?'<div class="now-badge">Now</div>':''}`;
         c.appendChild(div);
       });
-    } catch(err) {
-      document.getElementById('cal-loading').textContent = 'Could not load calendar.';
-    }
+    } catch(err) { document.getElementById('cal-loading').textContent = 'Could not load calendar.'; }
   }
-
-  if (getTokenFromHash()) {
-    loadCalendar();
-  } else {
-    showCalConnect();
-  }
+  if (getTokenFromHash()) { loadCalendar(); } else { showCalConnect(); }
   setInterval(loadCalendar, 300000);
 
   // ── Theme ──
@@ -548,20 +582,17 @@
     document.getElementById('date-display').textContent = ds + '  ·  Your day at a glance — calm, clear, in motion';
     document.getElementById('footer-date').textContent = MONTHS[n.getMonth()]+' '+n.getDate();
   }
-  updateClock();
-  setInterval(updateClock, 15000);
+  updateClock(); setInterval(updateClock, 15000);
 
   // ── Tasks ──
   let tasksDone = 0;
   function toggleTask(el, total) {
-    const done = el.classList.toggle('done');
-    const chk  = el.querySelector('.task-check');
-    const bdg  = el.querySelector('.badge');
+    const done = el.classList.toggle('done'), chk = el.querySelector('.task-check'), bdg = el.querySelector('.badge');
     chk.classList.toggle('checked', done);
     if (done) { tasksDone++; bdg.className='badge badge-done'; bdg.textContent='Done'; }
     else { tasksDone=Math.max(0,tasksDone-1); bdg.className='badge badge-today'; bdg.textContent='Today'; }
     const r = total - tasksDone;
-    document.getElementById('task-meta').textContent  = r + ' remaining';
+    document.getElementById('task-meta').textContent = r + ' remaining';
     document.getElementById('stat-tasks').textContent = r;
   }
 
@@ -573,39 +604,210 @@
     el.querySelector('.email-actions').innerHTML = '<div class="sent-label">Sent ✓</div>';
     emailsDone++;
     const r = total - emailsDone;
-    document.getElementById('email-meta').textContent  = r > 0 ? r+' pending' : 'All clear ✓';
+    document.getElementById('email-meta').textContent = r > 0 ? r+' pending' : 'All clear ✓';
     document.getElementById('stat-emails').textContent = r;
   }
 
+  // ── KANBAN DATA ──
+  const PK_STAGES = [
+    {id:'ideas',  label:'Ideas',   color:'#888780', bg:'rgba(136,135,128,0.18)', dotColor:'var(--text-2)'},
+    {id:'audio',  label:'Audio',   color:'#4a9ee0', bg:'rgba(74,158,224,0.15)',  dotColor:'var(--blue)'},
+    {id:'visuals',label:'Visuals', color:'#8b7fe8', bg:'rgba(139,127,232,0.15)', dotColor:'var(--purple)'},
+    {id:'edit',   label:'Edit',    color:'#e8a020', bg:'rgba(232,160,32,0.15)',  dotColor:'var(--amber)'},
+    {id:'ready',  label:'Ready',   color:'#2dca8c', bg:'rgba(45,202,140,0.15)', dotColor:'var(--green)'},
+  ];
+
+  let pkData = {
+    ideas:   [{id:1,title:'Crystal Cave Meditation',notes:''},{id:2,title:'Mountain Storm Ambience',notes:''},{id:3,title:'Desert Wind Soundscape',notes:''},{id:4,title:'Arctic Tundra Drift',notes:''}],
+    audio:   [{id:5,title:'Forest Rain Ambience Vol. 2',notes:''},{id:6,title:'Midnight Ocean Waves',notes:''}],
+    visuals: [{id:7,title:'Enchanted Forest Walk',notes:''},{id:8,title:'Underwater Zen Garden',notes:''},{id:9,title:'Northern Lights Journey',notes:''}],
+    edit:    [{id:10,title:'Rainstorm on Glass',notes:''}],
+    ready:   [{id:11,title:'Deep Ocean Drift',notes:''}],
+  };
+  let pkNextId = 12;
+  let pkDragging = null, pkFromStage = null, pkFromIdx = null;
+
+  function pkSave() {
+    try { localStorage.setItem('cc-pipeline-v1', JSON.stringify({d:pkData,n:pkNextId})); } catch(e) {}
+  }
+  function pkLoad() {
+    try { const s = localStorage.getItem('cc-pipeline-v1'); if(s){const p=JSON.parse(s);pkData=p.d;pkNextId=p.n||12;} } catch(e) {}
+  }
+  pkLoad();
+
+  function pkUpdateMini() {
+    PK_STAGES.forEach(st => {
+      const el = document.getElementById('mini-'+st.id);
+      if (el) el.textContent = (pkData[st.id]||[]).length;
+    });
+    // top piece per stage
+    const list = document.getElementById('top-pieces');
+    if (!list) return;
+    list.innerHTML = '';
+    PK_STAGES.forEach(st => {
+      const cards = pkData[st.id]||[];
+      if (!cards.length) return;
+      const top = cards[0];
+      const div = document.createElement('div');
+      div.className = 'piece';
+      div.innerHTML = `<div class="piece-dot" style="background:${st.dotColor}"></div><div class="piece-text">${top.title}</div><div class="piece-tag">${st.label}</div>`;
+      list.appendChild(div);
+    });
+    // update ready stat
+    const readyEl = document.getElementById('stat-ready');
+    if (readyEl) readyEl.textContent = (pkData.ready||[]).length;
+  }
+
+  function pkRenderBoard(container) {
+    container.innerHTML = '';
+    PK_STAGES.forEach(stage => {
+      const cards = pkData[stage.id]||[];
+      const col = document.createElement('div');
+      col.className = 'pk-col';
+
+      const hdr = document.createElement('div');
+      hdr.className = 'pk-col-header';
+      hdr.style.background = stage.bg;
+      hdr.innerHTML = `<span class="pk-col-label" style="color:${stage.color}">${stage.label}</span><span class="pk-col-count" style="color:${stage.color}">${cards.length}</span>`;
+      col.appendChild(hdr);
+
+      const cardList = document.createElement('div');
+      cardList.className = 'pk-cards';
+
+      if (!cards.length) {
+        const dz = document.createElement('div');
+        dz.className = 'pk-drop-zone';
+        dz.textContent = 'drag here';
+        pkSetupDrop(dz, stage.id, 0, container);
+        cardList.appendChild(dz);
+      } else {
+        cards.forEach((card, idx) => cardList.appendChild(pkBuildCard(card, stage, idx, container)));
+      }
+
+      col.appendChild(cardList);
+
+      const addBtn = document.createElement('button');
+      addBtn.className = 'pk-add-card';
+      addBtn.textContent = '+ add project';
+      addBtn.onclick = () => pkOpenModal(stage.id);
+      col.appendChild(addBtn);
+
+      container.appendChild(col);
+    });
+    pkUpdateMini();
+  }
+
+  function pkBuildCard(card, stage, idx, container) {
+    const el = document.createElement('div');
+    el.className = 'pk-card';
+    el.draggable = true;
+    el.style.borderLeftColor = stage.color;
+    el.innerHTML = `<div class="pk-card-title">${card.title}</div>
+      <textarea class="pk-notes" placeholder="Add notes...">${card.notes}</textarea>
+      <div class="pk-card-footer"><button class="pk-del" title="Remove">✕</button></div>`;
+    el.querySelector('.pk-notes').addEventListener('change', e => { card.notes = e.target.value; pkSave(); });
+    el.querySelector('.pk-del').addEventListener('click', ev => {
+      ev.stopPropagation();
+      pkData[stage.id] = pkData[stage.id].filter(c => c.id !== card.id);
+      pkSave(); pkRenderBoard(container);
+    });
+    el.addEventListener('dragstart', e => {
+      pkDragging = card.id; pkFromStage = stage.id; pkFromIdx = idx;
+      el.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move';
+    });
+    el.addEventListener('dragend', () => { el.classList.remove('dragging'); pkDragging = null; });
+    pkSetupDrop(el, stage.id, idx, container);
+    return el;
+  }
+
+  function pkSetupDrop(el, stageId, idx, container) {
+    el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('drag-over'); });
+    el.addEventListener('dragleave', () => el.classList.remove('drag-over'));
+    el.addEventListener('drop', e => {
+      e.preventDefault(); el.classList.remove('drag-over');
+      if (pkDragging === null) return;
+      const fromArr = pkData[pkFromStage];
+      const cardIdx = fromArr.findIndex(c => c.id === pkDragging);
+      if (cardIdx === -1) return;
+      const [card] = fromArr.splice(cardIdx, 1);
+      const toArr = pkData[stageId];
+      let at = idx;
+      if (pkFromStage === stageId && cardIdx < idx) at = Math.max(0, idx - 1);
+      toArr.splice(Math.min(at, toArr.length), 0, card);
+      pkSave(); pkRenderBoard(container);
+    });
+  }
+
+  let pkModalStage = 'ideas';
+  function pkOpenModal(stageId) {
+    pkModalStage = stageId || 'ideas';
+    document.getElementById('pk-new-title').value = '';
+    document.getElementById('pk-new-stage').value = pkModalStage;
+    document.getElementById('pk-modal').classList.add('open');
+    setTimeout(() => document.getElementById('pk-new-title').focus(), 50);
+  }
+  function pkCloseModal() { document.getElementById('pk-modal').classList.remove('open'); }
+  function pkAddCard() {
+    const title = document.getElementById('pk-new-title').value.trim();
+    const stage = document.getElementById('pk-new-stage').value;
+    if (!title) return;
+    pkData[stage].unshift({id: pkNextId++, title, notes:''});
+    pkSave();
+    const board = document.getElementById('pk-board-render');
+    if (board) pkRenderBoard(board);
+    pkUpdateMini();
+    pkCloseModal();
+  }
+  document.getElementById('pk-new-title').addEventListener('keydown', e => {
+    if (e.key === 'Enter') pkAddCard();
+    if (e.key === 'Escape') pkCloseModal();
+  });
+
   // ── Focus Mode ──
   const FOCUS = {
-    calendar: { label:"Today's schedule",             color:'var(--teal)'   },
-    tasks:    { label:'Tasks — needs attention',      color:'var(--amber)'  },
-    email:    { label:'Email drafts — ready to review',color:'var(--coral)' },
-    goals:    { label:'Business goals & milestones',  color:'var(--purple)' },
-    creative: { label:'Creative pipeline',            color:'var(--blue)'   },
-    ai:       { label:'AI assistant',                 color:'var(--sage)'   },
+    calendar: { label:"Today's schedule",              color:'var(--teal)'   },
+    tasks:    { label:'Tasks — needs attention',       color:'var(--amber)'  },
+    email:    { label:'Email drafts — ready to review',color:'var(--coral)'  },
+    goals:    { label:'Business goals & milestones',   color:'var(--purple)' },
+    creative: { label:'Creative pipeline',             color:'var(--blue)'   },
+    ai:       { label:'AI assistant',                  color:'var(--sage)'   },
   };
 
   function openFocus(section) {
     const cfg = FOCUS[section]; if (!cfg) return;
-    const src = document.getElementById('card-'+section); if (!src) return;
     document.getElementById('focus-accent').style.background = cfg.color;
     document.getElementById('focus-label').textContent = cfg.label;
-    const clone = src.cloneNode(true);
-    const hdr = clone.querySelector('.card-header'); if (hdr) hdr.remove();
-    clone.removeAttribute('onclick'); clone.removeAttribute('id');
-    document.getElementById('focus-content').innerHTML = clone.innerHTML;
     document.getElementById('focus-overlay').classList.add('active');
     document.body.style.overflow = 'hidden';
+
+    const fc = document.getElementById('focus-content');
+
+    if (section === 'creative') {
+      fc.innerHTML = `<div class="pk-wrap">
+        <div class="pk-topbar">
+          <h2>Creative pipeline — ambient content</h2>
+          <button class="pk-add-btn" onclick="pkOpenModal()">+ New project</button>
+        </div>
+        <div class="pk-board" id="pk-board-render"></div>
+      </div>`;
+      pkRenderBoard(document.getElementById('pk-board-render'));
+    } else {
+      const src = document.getElementById('card-'+section); if (!src) return;
+      const clone = src.cloneNode(true);
+      const hdr = clone.querySelector('.card-header'); if (hdr) hdr.remove();
+      clone.removeAttribute('onclick'); clone.removeAttribute('id');
+      fc.innerHTML = clone.innerHTML;
+    }
   }
 
   function closeFocus() {
     document.getElementById('focus-overlay').classList.remove('active');
     document.body.style.overflow = '';
   }
-
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFocus(); });
+
+  // init mini
+  pkUpdateMini();
 </script>
 </body>
 </html>
