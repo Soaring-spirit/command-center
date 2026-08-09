@@ -325,6 +325,83 @@
   .modal-footer button { font-size: 13px; padding: 7px 18px; border-radius: var(--radius-sm); cursor: pointer; font-family: 'DM Sans', sans-serif; }
   .btn-cancel { border: 0.5px solid var(--border-md); background: transparent; color: var(--text-2); }
   .btn-blue { border: none; background: var(--blue); color: #fff; font-weight: 500; }
+  .btn-sage { border: none; background: var(--sage); color: #fff; font-weight: 500; }
+
+  /* JEFF / WISDOM OF AGE — mini overview on main tile */
+  .jf-mini-row { display: flex; gap: 6px; }
+  .jf-mini { flex: 1; background: rgba(255,255,255,0.025); border-radius: var(--radius-sm); padding: 11px 6px 10px; border: 0.5px solid var(--border); text-align: center; }
+  .jf-mini-label { font-size: 9px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.3; height: 23px; margin-bottom: 6px; display: flex; align-items: flex-end; justify-content: center; }
+  .jf-mini-num { font-size: 22px; font-weight: 300; line-height: 1; font-family: 'DM Mono', monospace; }
+
+  /* JEFF — Deep Focus board */
+  .jf-board { display: flex; gap: 14px; overflow-x: auto; padding-bottom: 8px; }
+  .jf-col { flex: 0 0 236px; display: flex; flex-direction: column; gap: 10px; }
+  .jf-col-header { padding: 11px 13px; border-radius: var(--radius-sm); display: flex; flex-direction: column; gap: 2px; }
+  .jf-col-toprow { display: flex; align-items: center; justify-content: space-between; }
+  .jf-col-label { font-size: 13.5px; font-weight: 500; }
+  .jf-col-count { font-size: 12px; padding: 2px 10px; border-radius: 20px; font-weight: 500; font-family: 'DM Mono', monospace; }
+  .jf-col-sub { font-size: 10.5px; color: var(--text-3); }
+  .jf-cards { display: flex; flex-direction: column; gap: 8px; min-height: 70px; }
+  .jf-card { background: rgba(255,255,255,0.04); border: 0.5px solid var(--border); border-radius: var(--radius-sm); border-left-width: 4px; border-left-style: solid; padding: 11px 13px; cursor: grab; user-select: none; transition: border-color 0.15s; }
+  .jf-card:active { cursor: grabbing; }
+  .jf-card.dragging { opacity: 0.35; }
+  .jf-col.drag-over .jf-cards { outline: 1.5px dashed var(--sage); outline-offset: 4px; border-radius: var(--radius-sm); }
+  .jf-card-top { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
+  .jf-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-3); background: rgba(255,255,255,0.05); padding: 2px 7px; border-radius: 4px; flex-shrink: 0; }
+  .jf-name { font-size: 13.5px; font-weight: 500; color: var(--text-1); line-height: 1.3; flex: 1; }
+  .jf-card-foot { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+  .jf-progress-track { flex: 1; height: 4px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden; }
+  .jf-progress-fill { height: 100%; border-radius: 3px; }
+  .jf-progress-text { font-size: 10.5px; color: var(--text-3); font-family: 'DM Mono', monospace; flex-shrink: 0; }
+  .jf-notes-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .jf-notes-dot.has-notes { background: var(--sage); }
+  .jf-notes-dot.no-notes { background: var(--border-md); }
+  .jf-placeholder-tag { font-size: 10.5px; color: var(--text-3); font-style: italic; }
+  .jf-date-subtle { font-size: 10px; color: var(--text-3); font-family: 'DM Mono', monospace; opacity: 0.75; flex: 1; }
+  .jf-promo-note { font-size: 10px; color: var(--text-3); padding: 9px 10px; border: 0.5px dashed var(--border-md); border-radius: 6px; text-align: center; margin-top: 2px; }
+  .jf-add-card { font-size: 12px; padding: 7px 10px; border-radius: var(--radius-sm); border: 0.5px dashed var(--border-md); background: transparent; color: var(--text-3); cursor: pointer; text-align: left; width: 100%; font-family: 'DM Sans', sans-serif; }
+  .jf-add-card:hover { background: rgba(255,255,255,0.04); color: var(--text-2); }
+
+  /* JEFF — expanded story card modal */
+  .story-modal { background: var(--bg-card); border-radius: var(--radius); border: 0.5px solid var(--border-md); padding: 28px 30px; width: 100%; max-width: 560px; }
+  .sm-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 6px; }
+  .sm-id { display: flex; align-items: center; gap: 10px; }
+  .sm-num { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--sage); background: var(--sage-dim); padding: 4px 10px; border-radius: 6px; }
+  .sm-name { font-size: 19px; font-weight: 500; color: var(--text-1); }
+  .sm-close { font-size: 13px; color: var(--text-3); cursor: pointer; padding: 6px 10px; }
+  .sm-close:hover { color: var(--text-1); }
+  .sm-stage-row { display: flex; align-items: center; gap: 9px; margin: 14px 0 6px; padding-bottom: 18px; border-bottom: 0.5px solid var(--border); }
+  .sm-stage-label { font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em; }
+  .sm-stage-select { font-size: 13px; padding: 7px 11px; border-radius: var(--radius-sm); border: 0.5px solid var(--border-md); background: rgba(255,255,255,0.05); color: var(--text-1); font-family: 'DM Sans', sans-serif; outline: none; }
+  .sm-dates-quiet { font-size: 11px; color: var(--text-3); font-family: 'DM Mono', monospace; margin: 0 0 20px; }
+  .sm-section-title { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+  .sm-checklist { display: flex; flex-direction: column; gap: 2px; margin-bottom: 24px; }
+  .sm-check-row { display: flex; align-items: flex-start; gap: 11px; padding: 8px 6px; border-radius: 6px; cursor: pointer; }
+  .sm-check-row:hover { background: rgba(255,255,255,0.025); }
+  .sm-check-box { width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid rgba(114,170,48,0.4); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; }
+  .sm-check-box.checked { background: var(--sage-dim); border-color: var(--sage); }
+  .sm-check-box.checked::after { content: ''; width: 9px; height: 5px; border-left: 2px solid var(--sage); border-bottom: 2px solid var(--sage); transform: rotate(-45deg) translate(1px,-1px); }
+  .sm-check-text { font-size: 13.5px; color: var(--text-1); line-height: 1.4; }
+  .sm-check-row.done .sm-check-text { color: var(--text-3); text-decoration: line-through; }
+  .sm-notes { width: 100%; border: none; background: rgba(255,255,255,0.05); border-radius: var(--radius-sm); font-size: 13.5px; color: var(--text-2); font-family: 'DM Sans', sans-serif; resize: none; padding: 12px 13px; min-height: 80px; outline: none; line-height: 1.55; }
+  .sm-notes::placeholder { color: var(--text-3); }
+  .sm-notes-hint { font-size: 10.5px; color: var(--text-3); margin-top: 7px; }
+  .sm-promo-block { padding: 16px; border: 0.5px dashed var(--border-md); border-radius: var(--radius-sm); text-align: center; margin-bottom: 20px; }
+  .sm-promo-block p { font-size: 13px; color: var(--text-3); font-style: italic; }
+  .sm-empty-stage { padding: 14px 0; font-size: 13px; color: var(--text-3); font-style: italic; margin-bottom: 20px; }
+  .sm-earlier { margin-bottom: 22px; border-top: 0.5px solid var(--border); padding-top: 14px; }
+  .sm-earlier-summary { font-size: 11.5px; color: var(--text-3); cursor: pointer; letter-spacing: 0.02em; }
+  .sm-earlier-summary:hover { color: var(--text-2); }
+  .sm-history-list { display: flex; flex-direction: column; gap: 5px; margin-top: 14px; padding-bottom: 6px; }
+  .sm-history-row { display: flex; align-items: center; gap: 9px; font-size: 12px; color: var(--text-3); }
+  .sm-history-row.current .sm-history-label, .sm-history-row.current .sm-history-date { color: var(--text-1); }
+  .sm-history-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .sm-history-label { flex: 1; }
+  .sm-history-date { font-family: 'DM Mono', monospace; }
+  .sm-earlier-block { margin-top: 14px; }
+  .sm-earlier-block-title { font-size: 11px; font-weight: 500; font-family: 'DM Mono', monospace; margin-bottom: 6px; }
+  .sm-checklist-compact .sm-check-text { font-size: 12.5px; color: var(--text-2); }
+  .sm-checklist-compact .sm-check-row.done .sm-check-text { color: var(--text-3); }
 
   /* ANIMATIONS */
   .card { animation: fadeUp 0.4s ease both; }
@@ -402,6 +479,15 @@
           <div class="stage-mini"><div class="stage-mini-label">Ready</div><div class="stage-mini-num" id="mini-ready" style="color:var(--green)">0</div><div class="stage-mini-sub">Upload</div></div>
         </div>
         <div class="piece-list" id="top-pieces"></div>
+      </div>
+
+      <!-- JEFF / WISDOM OF AGE PUBLISHING -->
+      <div class="card card-sage" id="card-jeff" onclick="openFocus('jeff')">
+        <div class="card-header">
+          <div class="accent" style="background:var(--sage)"></div>
+          <div class="card-title">Jeff — Wisdom of Age</div>
+        </div>
+        <div class="jf-mini-row" id="jf-mini-row"></div>
       </div>
 
     </div>
@@ -534,6 +620,24 @@
         <button class="btn-blue" onclick="pkAddCard()">Add project</button>
       </div>
     </div>
+  </div>
+
+  <!-- JEFF — ADD STORY MODAL -->
+  <div class="modal-bg" id="jf-add-modal">
+    <div class="modal-box">
+      <h3>Add new story</h3>
+      <input type="number" id="jf-new-num" placeholder="Story number..." />
+      <input type="text" id="jf-new-name" placeholder="Story / person name..." />
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="jfCloseAddModal()">Cancel</button>
+        <button class="btn-sage" onclick="jfAddStory()">Add story</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JEFF — EXPANDED STORY CARD MODAL -->
+  <div class="modal-bg" id="jf-story-modal-bg" onclick="if(event.target===this)jfCloseStory()">
+    <div class="story-modal" id="jf-story-modal"></div>
   </div>
 
 </div>
@@ -676,6 +780,304 @@ function pkCloseModal(){document.getElementById('pk-modal').classList.remove('op
 function pkAddCard(){const title=document.getElementById('pk-new-title').value.trim();const stage=document.getElementById('pk-new-stage').value;if(!title)return;pkData[stage].unshift({id:pkNextId++,title,notes:''});pkSave();const board=document.getElementById('pk-board-render');if(board)pkRenderBoard(board);pkUpdateMini();pkCloseModal();}
 document.getElementById('pk-new-title').addEventListener('keydown',e=>{if(e.key==='Enter')pkAddCard();if(e.key==='Escape')pkCloseModal();});
 pkUpdateMini();
+
+// ── JEFF / WISDOM OF AGE PUBLISHING ──
+const JF_STAGES = [
+  {id:'upcoming',  label:'Upcoming',            color:'var(--text-2)', bg:'rgba(255,255,255,0.05)', sub:'Not started'},
+  {id:'carousel',  label:'Carousel Production', color:'var(--amber)',  bg:'rgba(232,160,32,0.15)',  sub:'Canva'},
+  {id:'linkedin',  label:'LinkedIn',            color:'var(--blue)',   bg:'rgba(74,158,224,0.15)',  sub:'Post + carousel'},
+  {id:'substack',  label:'Substack',            color:'var(--coral)',  bg:'rgba(217,95,56,0.15)',   sub:'Article'},
+  {id:'promotion', label:'Promotion',           color:'var(--purple)', bg:'rgba(139,127,232,0.15)', sub:'Workflow under development'},
+  {id:'complete',  label:'Complete',            color:'var(--green)',  bg:'rgba(45,202,140,0.15)',  sub:'This publishing cycle done'},
+];
+const JF_CAROUSEL_CHECKLIST = [
+  'Remove original text from illustration',
+  'Add introductory overlay text to first slide',
+  'Review final/book slide against illustration for visual harmony',
+  'Adjust final/book slide background if needed',
+  'Create reflection-question slide',
+  'Create quote/speaker-information slide(s)',
+  'Create/assemble carousel in Canva',
+  'Upload images to Canva',
+  'Edit assembled carousel',
+  'Name Canva project using story name + number',
+  'Export carousel PDF',
+  'Upload final assets to shared Drive folder',
+];
+const JF_LINKEDIN_CHECKLIST = [
+  'Create/finalize LinkedIn post text',
+  'Save final LinkedIn post text to the existing LinkedIn story document',
+  'Upload carousel PDF to LinkedIn',
+  'Add post text',
+  'Verify book link works',
+  'Schedule LinkedIn post',
+  'Confirm publication date + record in publishing tracker',
+];
+const JF_SUBSTACK_CHECKLIST = [
+  'Create Substack article',
+  'Add appropriate image',
+  'Edit and format article',
+  'Verify links',
+  'Schedule article',
+  'Confirm publication date + record in publishing tracker',
+];
+const JF_CHECKLISTS = { carousel: JF_CAROUSEL_CHECKLIST, linkedin: JF_LINKEDIN_CHECKLIST, substack: JF_SUBSTACK_CHECKLIST };
+
+let jfStories = [];
+let jfNextId = 1;
+let jfDragging = null;
+
+function jfMkChecklist(stage){ const list = JF_CHECKLISTS[stage]; return list ? list.map(()=>false) : []; }
+
+// Records the FIRST date a story enters a stage. Never overwrites — this is an
+// automatic historical record, not a manual field, and it is preserved even if
+// a story is later dragged back to a stage it has already visited.
+function jfRecordStageEntry(story, stageId){
+  if(!story.stageDates) story.stageDates = {};
+  if(!story.stageDates[stageId]) story.stageDates[stageId] = new Date().toISOString().slice(0,10);
+}
+function jfFormatDate(dateStr){
+  if(!dateStr) return '';
+  const d = new Date(dateStr + 'T00:00:00');
+  const s = d.toLocaleDateString('en-US', {month:'short', day:'numeric'});
+  const thisYear = new Date().getFullYear();
+  return d.getFullYear()===thisYear ? s : s + " '" + String(d.getFullYear()).slice(2);
+}
+
+function jfSave(){ try{ localStorage.setItem('cc-jeff-v1', JSON.stringify({stories:jfStories, nextId:jfNextId})); }catch(e){} }
+function jfLoad(){
+  try{
+    const s = localStorage.getItem('cc-jeff-v1');
+    if(s){ const p = JSON.parse(s); jfStories = p.stories||[]; jfNextId = p.nextId||1; }
+  }catch(e){}
+}
+jfLoad();
+
+function jfChecklistProgress(story){
+  const list = JF_CHECKLISTS[story.stage];
+  if(!list) return null;
+  const arr = story.done[story.stage] || jfMkChecklist(story.stage);
+  const done = arr.filter(Boolean).length;
+  return {done, total:list.length};
+}
+
+function jfUpdateMini(){
+  const row = document.getElementById('jf-mini-row');
+  if(row){
+    row.innerHTML = JF_STAGES.map(st=>{
+      const count = jfStories.filter(s=>s.stage===st.id).length;
+      return `<div class="jf-mini"><div class="jf-mini-label">${st.label}</div><div class="jf-mini-num" style="color:${st.color}">${count}</div></div>`;
+    }).join('');
+  }
+}
+
+function jfRenderBoard(container){
+  container.innerHTML='';
+  JF_STAGES.forEach(stage=>{
+    const col = document.createElement('div');
+    col.className='jf-col';
+    col.dataset.stage = stage.id;
+    const cards = jfStories.filter(s=>s.stage===stage.id).sort((a,b)=>a.num-b.num);
+    const hdr = document.createElement('div');
+    hdr.className='jf-col-header';
+    hdr.style.background = stage.bg;
+    hdr.innerHTML = `<div class="jf-col-toprow"><span class="jf-col-label" style="color:${stage.color}">${stage.label}</span><span class="jf-col-count" style="color:${stage.color}">${cards.length}</span></div><div class="jf-col-sub">${stage.sub}</div>`;
+    col.appendChild(hdr);
+
+    const list = document.createElement('div');
+    list.className='jf-cards';
+    cards.forEach(story=>{
+      const el = document.createElement('div');
+      el.className='jf-card';
+      el.draggable = true;
+      el.style.borderLeftColor = stage.color;
+
+      let footHtml = '';
+      if(stage.id==='carousel'||stage.id==='linkedin'||stage.id==='substack'){
+        const p = jfChecklistProgress(story);
+        const pct = Math.round((p.done/p.total)*100);
+        footHtml = `<div class="jf-card-foot">
+          <div class="jf-progress-track"><div class="jf-progress-fill" style="width:${pct}%;background:${stage.color}"></div></div>
+          <div class="jf-progress-text">${p.done}/${p.total}</div>
+          <div class="jf-notes-dot ${story.notes?'has-notes':'no-notes'}" title="${story.notes?'Has notes':'No notes'}"></div>
+        </div>`;
+      } else if(stage.id==='promotion'){
+        footHtml = `<div class="jf-promo-note">Workflow under development</div>`;
+      } else {
+        const tag = stage.id==='upcoming' ? 'Not started' : 'Complete';
+        const dateBit = stage.id==='complete' && story.stageDates && story.stageDates.complete
+          ? `<span class="jf-date-subtle">${jfFormatDate(story.stageDates.complete)}</span>` : '';
+        footHtml = `<div class="jf-card-foot"><span class="jf-placeholder-tag">${tag}</span>${dateBit}<div class="jf-notes-dot ${story.notes?'has-notes':'no-notes'}"></div></div>`;
+      }
+
+      el.innerHTML = `<div class="jf-card-top">
+          <span class="jf-num">#${story.num}</span>
+          <span class="jf-name">${story.name}</span>
+        </div>${footHtml}`;
+
+      el.addEventListener('click', ()=>jfOpenStory(story.id));
+      el.addEventListener('dragstart', e=>{ jfDragging=story.id; el.classList.add('dragging'); e.dataTransfer.effectAllowed='move'; });
+      el.addEventListener('dragend', ()=>el.classList.remove('dragging'));
+      list.appendChild(el);
+    });
+    col.appendChild(list);
+
+    const addBtn = document.createElement('button');
+    addBtn.className='jf-add-card';
+    addBtn.textContent='+ add story';
+    addBtn.onclick = ()=>jfOpenAddModal();
+    col.appendChild(addBtn);
+
+    col.addEventListener('dragover', e=>{ e.preventDefault(); col.classList.add('drag-over'); });
+    col.addEventListener('dragleave', ()=>col.classList.remove('drag-over'));
+    col.addEventListener('drop', e=>{
+      e.preventDefault(); col.classList.remove('drag-over');
+      if(jfDragging==null) return;
+      const s = jfStories.find(x=>x.id===jfDragging);
+      if(s){ s.stage = stage.id; jfRecordStageEntry(s, stage.id); jfSave(); }
+      jfDragging = null;
+      jfRenderAll();
+    });
+
+    container.appendChild(col);
+  });
+}
+
+function jfEarlierStagesHtml(story){
+  const dates = story.stageDates || {};
+  const historyStages = JF_STAGES.filter(st => dates[st.id]);
+  const checklistStages = Object.keys(story.done||{}).filter(k=>k!==story.stage && JF_CHECKLISTS[k]);
+  if(!historyStages.length && !checklistStages.length) return '';
+
+  let historyHtml = '';
+  if(historyStages.length){
+    historyHtml = `<div class="sm-history-list">` + historyStages.map(st=>`
+      <div class="sm-history-row ${st.id===story.stage?'current':''}">
+        <span class="sm-history-dot" style="background:${st.color}"></span>
+        <span class="sm-history-label">${st.label}</span>
+        <span class="sm-history-date">${jfFormatDate(dates[st.id])}</span>
+      </div>`).join('') + `</div>`;
+  }
+
+  let checklistsHtml = '';
+  if(checklistStages.length){
+    checklistsHtml = checklistStages.map(stageId=>{
+      const stg = JF_STAGES.find(st=>st.id===stageId);
+      const list = JF_CHECKLISTS[stageId];
+      const arr = story.done[stageId];
+      const done = arr.filter(Boolean).length;
+      return `<div class="sm-earlier-block">
+        <div class="sm-earlier-block-title" style="color:${stg.color}">${stg.label} · ${done}/${list.length}</div>
+        <div class="sm-checklist sm-checklist-compact">` +
+        list.map((item,i)=>`<div class="sm-check-row ${arr[i]?'done':''}" onclick="jfToggleCheck(${story.id},'${stageId}',${i})">
+          <div class="sm-check-box ${arr[i]?'checked':''}"></div>
+          <div class="sm-check-text">${item}</div>
+        </div>`).join('') +
+        `</div></div>`;
+    }).join('');
+  }
+
+  return `<details class="sm-earlier"><summary class="sm-earlier-summary">History &amp; earlier checklists (kept with this story, not shown by default)</summary>
+    ${historyHtml}
+    ${checklistsHtml}
+  </details>`;
+}
+
+function jfOpenStory(id){
+  const s = jfStories.find(x=>x.id===id);
+  if(!s) return;
+  const stage = JF_STAGES.find(st=>st.id===s.stage);
+  const modal = document.getElementById('jf-story-modal');
+  const dates = s.stageDates || {};
+  const startDate = dates.upcoming || Object.values(dates).sort()[0];
+
+  let bodyHtml = '';
+  const list = JF_CHECKLISTS[s.stage];
+  if(list){
+    if(!s.done) s.done = {};
+    const arr = s.done[s.stage] || (s.done[s.stage] = jfMkChecklist(s.stage));
+    bodyHtml += `<div class="sm-section-title">${stage.label} checklist</div><div class="sm-checklist">` +
+      list.map((item,i)=>`<div class="sm-check-row ${arr[i]?'done':''}" onclick="jfToggleCheck(${s.id},'${s.stage}',${i})">
+        <div class="sm-check-box ${arr[i]?'checked':''}"></div>
+        <div class="sm-check-text">${item}</div>
+      </div>`).join('') + `</div>`;
+  } else if(s.stage==='promotion'){
+    bodyHtml += `<div class="sm-promo-block"><p>Promotion workflow is still being figured out — Substack's own tools, Jeff's email list, Vocable, and timely/holiday posts are all being weighed. Nothing to check off here yet.</p></div>`;
+  } else {
+    bodyHtml += `<div class="sm-empty-stage">${s.stage==='upcoming'?'Not yet started — no checklist until it moves into Carousel Production.':'Marked complete.'}</div>`;
+  }
+
+  bodyHtml += jfEarlierStagesHtml(s);
+
+  modal.innerHTML = `
+    <div class="sm-header">
+      <div class="sm-id"><div class="sm-num">#${s.num}</div><div class="sm-name">${s.name}</div></div>
+      <div class="sm-close" onclick="jfCloseStory()">✕ Close</div>
+    </div>
+    <div class="sm-stage-row">
+      <span class="sm-stage-label">Stage</span>
+      <select class="sm-stage-select" onchange="jfChangeStage(${s.id}, this.value)">
+        ${JF_STAGES.map(st=>`<option value="${st.id}" ${st.id===s.stage?'selected':''}>${st.label}</option>`).join('')}
+      </select>
+    </div>
+    <div class="sm-dates-quiet">${startDate?`Started ${jfFormatDate(startDate)}`:''}${startDate && dates[s.stage] ? ' · ' : ''}${dates[s.stage]?`Entered ${stage.label} ${jfFormatDate(dates[s.stage])}`:''}</div>
+    ${bodyHtml}
+    <div class="sm-section-title">Notes</div>
+    <textarea class="sm-notes" placeholder="Add notes... (stays attached to this story through every stage)" oninput="jfUpdateNotes(${s.id}, this.value)">${s.notes||''}</textarea>
+    <div class="sm-notes-hint">These notes travel with the story — the same as Notes in Creative Pipeline.</div>
+  `;
+  document.getElementById('jf-story-modal-bg').classList.add('open');
+}
+function jfCloseStory(){ document.getElementById('jf-story-modal-bg').classList.remove('open'); jfRenderAll(); }
+function jfToggleCheck(id, stage, idx){
+  const s = jfStories.find(x=>x.id===id);
+  if(!s.done) s.done = {};
+  if(!s.done[stage]) s.done[stage] = jfMkChecklist(stage);
+  s.done[stage][idx] = !s.done[stage][idx];
+  jfSave();
+  jfOpenStory(id);
+}
+function jfChangeStage(id, newStage){
+  const s = jfStories.find(x=>x.id===id);
+  s.stage = newStage;
+  jfRecordStageEntry(s, newStage);
+  jfSave();
+  jfOpenStory(id);
+}
+function jfUpdateNotes(id, val){
+  const s = jfStories.find(x=>x.id===id);
+  s.notes = val;
+  jfSave();
+}
+
+function jfOpenAddModal(){
+  document.getElementById('jf-new-num').value='';
+  document.getElementById('jf-new-name').value='';
+  document.getElementById('jf-add-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('jf-new-num').focus(),50);
+}
+function jfCloseAddModal(){ document.getElementById('jf-add-modal').classList.remove('open'); }
+function jfAddStory(){
+  const num = parseInt(document.getElementById('jf-new-num').value);
+  const name = document.getElementById('jf-new-name').value.trim();
+  if(!name || isNaN(num)) return;
+  const story = { id: jfNextId++, num, name, stage:'upcoming', notes:'', done:{}, stageDates:{} };
+  jfRecordStageEntry(story, 'upcoming');
+  jfStories.push(story);
+  jfSave();
+  jfCloseAddModal();
+  const board = document.getElementById('jf-board-render');
+  if(board) jfRenderBoard(board);
+  jfUpdateMini();
+}
+
+function jfRenderAll(){
+  jfUpdateMini();
+  const board = document.getElementById('jf-board-render');
+  if(board) jfRenderBoard(board);
+}
+
+jfUpdateMini();
 
 // ── THEME ──
 function toggleTheme(){const l=document.body.classList.toggle('light');document.getElementById('theme-icon').textContent=l?'🌙':'☀️';document.getElementById('theme-label').textContent=l?'Dark mode':'Light mode';localStorage.setItem('cc-theme',l?'light':'dark');}
@@ -1038,6 +1440,7 @@ const FOCUS = {
   goals:    { label:'Business goals & milestones', color:'var(--purple)' },
   creative: { label:'Creative pipeline',           color:'var(--blue)' },
   ai:       { label:'AI assistant',                color:'var(--teal)' },
+  jeff:     { label:'Jeff — Wisdom of Age',         color:'var(--sage)' },
 };
 
 function openFocus(section) {
@@ -1053,6 +1456,10 @@ function openFocus(section) {
     fc.dataset.section = 'creative';
     fc.innerHTML = `<div class="pk-wrap"><div class="pk-topbar"><h2>Creative pipeline — ambient content</h2><button class="pk-add-btn" onclick="pkOpenModal()">+ New project</button></div><div class="pk-board" id="pk-board-render"></div></div>`;
     pkRenderBoard(document.getElementById('pk-board-render'));
+  } else if (section === 'jeff') {
+    fc.dataset.section = 'jeff';
+    fc.innerHTML = `<div class="pk-wrap"><div class="pk-topbar"><h2>Jeff — Wisdom of Age Publishing</h2></div><div class="jf-board" id="jf-board-render"></div></div>`;
+    jfRenderBoard(document.getElementById('jf-board-render'));
   } else if (section === 'goals') {
     buildFocusGoals(fc);
   } else if (section === 'ai') {
